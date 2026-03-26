@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Safari pinned-tab expects a monochrome shape (mask) -->
+  <path d="M145 140 L195 372 L255 200 L315 372 L365 140 L325 140 L300 300 L255 180 L210 300 L185 140 Z" fill="#000" />
+</svg>
