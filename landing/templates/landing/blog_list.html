@@ -1,0 +1,110 @@
+{% extends 'landing/base.html' %}
+{% load static %}
+
+{% block title %}Блог — ROADTECH{% endblock %}
+{% block meta_description %}Блог ROADTECH про асфальтування, асфальтирование, оренду техніки для асфальтування, підготовку основи, дорожні роботи та практичні поради для замовників.{% endblock %}
+{% block meta_keywords %}блог про асфальтування, блог про асфальтирование, оренда техніки для асфальтування, аренда техники для асфальтирования, дорожні роботи, асфальтні роботи, спецтехніка, каток в оренду{% endblock %}
+{% block og_type %}website{% endblock %}
+{% block og_title %}Блог ROADTECH — асфальтування та оренда техніки{% endblock %}
+{% block og_description %}Практичні матеріали про асфальтування, оренду техніки, ремонт покриття, підготовку основи та виконання дорожніх робіт.{% endblock %}
+{% block extra_head %}
+{{ block.super }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Блог ROADTECH",
+  "description": "Матеріали про асфальтування, асфальтирование та оренду техніки для дорожніх робіт.",
+  "url": "{{ request.build_absolute_uri|escapejs }}"
+}
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="rt-blog-hero">
+    <div class="container rt-blog-hero__grid">
+        <div class="rt-blog-hero__content">
+            <div class="rt-blog-badge">ROADTECH BLOG</div>
+            <h1 class="rt-blog-hero__title">
+                Блог про оренду техніки, асфальтування та дорожні роботи
+            </h1>
+            <p class="rt-blog-hero__text">
+                Практичні матеріали для тих, хто шукає підрядника, планує об’єкт,
+                орендує техніку або хоче розуміти, як виконуються асфальтні роботи без хаосу й зайвих витрат.
+            </p>
+        </div>
+
+        <div class="rt-blog-hero__panel">
+            <div class="rt-blog-hero__card">
+                <span>Матеріали</span>
+                <strong>{{ blog_posts|length }}</strong>
+                <p>актуальних публікацій у блозі</p>
+            </div>
+            <div class="rt-blog-hero__card rt-blog-hero__card--accent">
+                <span>Тематики</span>
+                <strong>Оренда / Асфальт / Поради</strong>
+                <p>корисно для приватних і комерційних об’єктів</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="rt-blog-list">
+    <div class="container">
+        {% if blog_posts %}
+            <div class="rt-blog-grid">
+                {% for post in blog_posts %}
+                <article class="rt-post-card {% cycle 'rt-post-card--large' '' '' %}">
+                    <a href="{{ post.get_absolute_url }}" class="rt-post-card__image-link" aria-label="{{ post.title }}">
+                        {% if post.image %}
+                            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="rt-post-card__image">
+                        {% elif post.image_url %}
+                            <img src="{{ post.image_url }}" alt="{{ post.title }}" class="rt-post-card__image">
+                        {% else %}
+                            <div class="rt-post-card__image rt-post-card__image--placeholder">
+                                <div class="rt-post-card__placeholder-inner">
+                                    <span>ROADTECH</span>
+                                    <strong>Блог</strong>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </a>
+
+                    <div class="rt-post-card__body">
+                        <div class="rt-post-card__meta">
+                            <time datetime="{{ post.created_at|date:'Y-m-d' }}">
+                                {{ post.created_at|date:'d.m.Y' }}
+                            </time>
+                        </div>
+
+                        <h2 class="rt-post-card__title">
+                            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                        </h2>
+
+                        <p class="rt-post-card__excerpt">
+                            {{ post.short_description|default:"Корисний матеріал про техніку, покриття, організацію робіт та практичні нюанси реалізації об’єктів." }}
+                        </p>
+
+                        <div class="rt-post-card__footer">
+                            <a href="{{ post.get_absolute_url }}" class="rt-post-card__link">
+                                Читати статтю
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="rt-empty-state">
+                <div class="rt-empty-state__icon">●</div>
+                <h2>Поки що статей немає</h2>
+                <p>Тут з’являться матеріали про асфальтні роботи, оренду техніки та практичні поради для замовників.</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

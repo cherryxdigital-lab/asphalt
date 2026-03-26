@@ -1,0 +1,520 @@
+{% extends 'landing/base.html' %}
+{% load static %}
+
+{% block title %}{% if company and company.name %}{{ company.name }} — {% endif %}Оренда спецтехніки та укладання асфальту{% endblock %}
+{% block meta_description %}{% if company and company.name %}{{ company.name }}{% else %}ROADTECH{% endif %} — асфальтування, асфальтирование, укладання асфальту, аренда техники для асфальтирования, оренда спецтехніки, ямковий ремонт і дорожні роботи під ключ по місту та області.{% endblock %}
+{% block meta_keywords %}асфальтування, асфальтирование, укладання асфальту, укладка асфальта, оренда спецтехніки, аренда спецтехники, оренда техніки для асфальтування, аренда техники для асфальтирования, оренда катка, аренда катка, дорожні роботи, дорожные работы, ямковий ремонт, ямочный ремонт, асфальтні роботи під ключ, асфальтные работы под ключ{% endblock %}
+{% block og_title %}{% if company and company.name %}{{ company.name }} — {% endif %}Асфальтування та оренда спецтехніки{% endblock %}
+{% block og_description %}Професійне асфальтування, асфальтирование, оренда спецтехніки, укладання асфальту, підготовка основи та ремонт покриття для приватних і комерційних об’єктів.{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container hero-grid">
+        <div class="hero-content">
+            <div class="eyebrow">Надійний підрядник для приватних та комерційних об’єктів</div>
+            <h1>{% if company and company.name %}{{ company.name }} — {% endif %}Оренда спецтехніки та професійне укладання асфальту під ключ</h1>
+            <p class="hero-text">
+                Працюємо з дворами, під’їздами, парковками, складами, АЗС, виробничими територіями та приватними об’єктами.
+                Забезпечуємо техніку, матеріали, бригаду та контроль якості на кожному етапі.
+            </p>
+
+            <div class="hero-actions">
+                <a href="#contacts" class="btn btn-primary">Отримати кошторис</a>
+                <a href="#equipment" class="btn btn-secondary">Переглянути техніку</a>
+            </div>
+
+            <div class="hero-features">
+                <div class="feature-chip"><i class="fas fa-check"></i> Швидкий виїзд на об’єкт</div>
+                <div class="feature-chip"><i class="fas fa-check"></i> Техніка в наявності</div>
+                <div class="feature-chip"><i class="fas fa-check"></i> Роботи під ключ</div>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <strong>100+</strong>
+                    <span>об’єктів виконано</span>
+                </div>
+                <div class="stat-card">
+                    <strong>24/7</strong>
+                    <span>зв’язок по заявках</span>
+                </div>
+                <div class="stat-card">
+                    <strong>до 1 дня</strong>
+                    <span>на прорахунок вартості</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="hero-image-card">
+                <img src="{% static 'images/bxdvvdxvvddxvvvvvvdssss.webp' %}" alt="Спецтехніка та укладання асфальту">
+            </div>
+            <div class="hero-badge hero-badge--dark">
+                <span>Оренда техніки</span>
+                <strong>з оператором</strong>
+            </div>
+            <div class="hero-badge hero-badge--accent">
+                <span>Асфальтні роботи</span>
+                <strong>від підготовки до здачі</strong>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-services" id="services">
+    <div class="container">
+        <div class="section-head">
+            <div>
+                <div class="section-eyebrow">Основні напрямки</div>
+                <h2 class="section-title">Послуги для будівництва, благоустрою та дорожніх робіт</h2>
+            </div>
+            <p class="section-text">
+                Закриваємо завдання як окремо по оренді техніки, так і комплексно — з виїздом, підготовкою, матеріалами та виконанням робіт.
+            </p>
+        </div>
+
+        <div class="services-grid">
+            <article class="service-card">
+                <div class="service-icon"><i class="fas fa-truck-monster"></i></div>
+                <h3>Оренда спецтехніки</h3>
+                <p>Екскаватори, котки, навантажувачі, самоскиди та інша техніка для будівельних і дорожніх задач.</p>
+            </article>
+
+            <article class="service-card">
+                <div class="service-icon"><i class="fas fa-road"></i></div>
+                <h3>Укладання асфальту</h3>
+                <p>Асфальтування дворів, стоянок, під’їздів, територій підприємств та комерційних майданчиків.</p>
+            </article>
+
+            <article class="service-card">
+                <div class="service-icon"><i class="fas fa-screwdriver-wrench"></i></div>
+                <h3>Ямковий ремонт</h3>
+                <p>Локальне відновлення покриття, усунення тріщин, вибоїн і пошкоджених ділянок.</p>
+            </article>
+
+            <article class="service-card">
+                <div class="service-icon"><i class="fas fa-layer-group"></i></div>
+                <h3>Підготовка основи</h3>
+                <p>Планування території, щебенева подушка, ущільнення, вирівнювання та підготовка під фінішне покриття.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+                    <section class="section section-equipment" id="equipment">
+                        <div class="container">
+                            <div class="section-head">
+                                <div>
+                                    <div class="section-eyebrow">Парк техніки</div>
+                                    <h2 class="section-title">Техніка в оренду для різних типів робіт</h2>
+                                </div>
+                                <p class="section-text">
+                                    Обирай техніку під свій об’єкт. Для кожної позиції можна вказати опис, ціну та фото — твоя Django-структура вже це підтримує.
+                                </p>
+                            </div>
+
+                            <div class="equipment-grid">
+                                {% for equipment in equipment %}
+                                <article class="equipment-card">
+                                    <div class="equipment-media">
+                                        {% if equipment.image %}
+                                            <img src="{{ equipment.image.url }}" alt="{{ equipment.name }}">
+                                        {% elif equipment.image_url %}
+                                            <img src="{{ equipment.image_url }}" alt="{{ equipment.name }}">
+                                        {% else %}
+                                            <div class="media-placeholder">
+                                                <i class="fas fa-truck-front"></i>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="equipment-body">
+                                        <h3>{{ equipment.name }}</h3>
+                                        <p>{{ equipment.description|default:"Надійна техніка для будівельних та дорожніх робіт." }}</p>
+
+                                        <div class="equipment-meta">
+                                            <div class="equipment-price">
+                                                {% if equipment.price %}
+                                                    від {{ equipment.price }} грн
+                                                    {% if equipment.price_unit %}/ {{ equipment.price_unit }}{% endif %}
+                                                {% else %}
+                                                    Ціна за запитом
+                                                {% endif %}
+                                            </div>
+                                            <a href="#contacts" class="inline-link">Замовити</a>
+                                        </div>
+                                    </div>
+                                </article>
+                                {% empty %}
+                                <div class="empty-state">
+                                    <i class="fas fa-triangle-exclamation"></i>
+                                    <p>Техніка ще не додана. Заповни позиції в адмінці, і вони з’являться тут.</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="section section-calculator" id="calculator">
+                        <div class="container">
+                            <div class="section-head">
+                                <div>
+                                    <div class="section-eyebrow">Калькулятор</div>
+                                    <h2 class="section-title">Швидкий прорахунок: асфальт та оренда техніки</h2>
+                                </div>
+                                <p class="section-text">Обчисли приблизну вартість робіт та оренди техніки в кілька кліків.</p>
+                            </div>
+
+                            <div class="calculator-grid">
+                                <div class="calc-controls">
+                                    <div class="form-row">
+                                        <label>Режим</label>
+                                        <div class="calc-mode" role="tablist" aria-label="Режим калькулятора">
+                                            <button type="button" class="mode-btn selected" data-mode="asphalt">Тільки асфальт</button>
+                                            <button type="button" class="mode-btn" data-mode="equipment">Тільки оренда</button>
+                                            <button type="button" class="mode-btn" data-mode="both">Обидва разом</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row calc-asphalt-row">
+                                        <label>Тип асфальту</label>
+                                        <div class="calc-asphalt-options">
+                                            {% for asphalt in asphalt_types %}
+                                            <div class="option" data-id="{{ asphalt.id }}" data-price="{{ asphalt.price_per_sqm|default:0 }}" data-name="{{ asphalt.name|escape }}">
+                                                <div class="option-title">{{ asphalt.name }}</div>
+                                                {% if asphalt.price_per_sqm %}<div class="option-sub">{{ asphalt.price_per_sqm }} грн/м²</div>{% endif %}
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row calc-area-row">
+                                        <label for="calc-area">Площа (м²)</label>
+                                        <input type="number" id="calc-area" min="1" step="1" placeholder="100" />
+                                    </div>
+
+                                    <hr />
+
+                                    <div class="form-row calc-equipment-row">
+                                        <label>Оберіть техніку</label>
+                                        <div class="calc-equipment-options">
+                                            {% for equipment in equipment %}
+                                            <div class="option" data-id="{{ equipment.id }}" data-price="{{ equipment.price|default:0 }}" data-min-hours="{{ equipment.min_hours|default:0 }}" data-unit="{{ equipment.price_unit|default:''|escape }}" data-name="{{ equipment.name|escape }}">
+                                                <div class="option-title">{{ equipment.name }}</div>
+                                                {% if equipment.price %}<div class="option-sub">{{ equipment.price }} грн{% if equipment.price_unit %}/{{ equipment.price_unit }}{% endif %}</div>{% endif %}
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row calc-selected-row">
+                                        <label>Параметри вибраної техніки</label>
+                                        <div id="calc-selected-equipment" class="calc-selected-equipment">
+                                            <p class="muted">Оберіть одну або кілька позицій техніки, і тут з’являться години або зміни для кожної.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <button id="calc-calc" class="btn btn-primary">Прорахувати</button>
+                                        <button id="calc-order" class="btn btn-secondary" type="button">Замовити</button>
+                                    </div>
+                                </div>
+
+                                <div class="calc-summary-wrap">
+                                    <div class="calc-summary" id="calc-summary">
+                                        <strong>Результат</strong>
+                                        <p class="muted">Виберіть опції та натисніть «Прорахувати».</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="section section-asphalt" id="asphalt">
+                        <div class="container">
+                            <div class="section-head">
+                                <div>
+                                    <div class="section-eyebrow">Асфальтні рішення</div>
+                                    <h2 class="section-title">Послуги з укладання та ремонту асфальту</h2>
+                                </div>
+                                <p class="section-text">
+                                    Підбираємо формат робіт під навантаження, тип об’єкта та бюджет. Працюємо акуратно, поетапно і з дотриманням технології.
+                                </p>
+                            </div>
+
+                            <div class="asphalt-grid">
+                                {% for asphalt in asphalt_types %}
+                                <article class="asphalt-card">
+                                    <div class="asphalt-media">
+                                        {% if asphalt.image %}
+                                            <img src="{{ asphalt.image.url }}" alt="{{ asphalt.name }}">
+                                        {% elif asphalt.image_url %}
+                                            <img src="{{ asphalt.image_url }}" alt="{{ asphalt.name }}">
+                                        {% else %}
+                                            <div class="media-placeholder media-placeholder--road">
+                                                <i class="fas fa-road"></i>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="asphalt-body">
+                                        <h3>{{ asphalt.name }}</h3>
+                                        <p>{{ asphalt.description|default:"Якісне рішення для благоустрою та дорожнього покриття." }}</p>
+
+                                        <div class="asphalt-footer">
+                                            <div class="asphalt-price">
+                                                {% if asphalt.price_per_sqm %}
+                                                    від {{ asphalt.price_per_sqm }} грн/м²
+                                                {% else %}
+                                                    Вартість за запитом
+                                                {% endif %}
+                                            </div>
+                                            <a href="#contacts" class="inline-link">Уточнити</a>
+                                        </div>
+                                    </div>
+                                </article>
+                                {% empty %}
+                                <div class="empty-state">
+                                    <i class="fas fa-triangle-exclamation"></i>
+                                    <p>Послуги асфальтування ще не додані. Заповни розділ у базі.</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="section section-advantages" id="advantages">
+                        <div class="container">
+                            <div class="section-head center">
+                                <div class="section-eyebrow">Чому обирають нас</div>
+                                <h2 class="section-title">Компанія, якій довіряють техніку й підряд</h2>
+                            </div>
+
+                            <div class="advantages-grid">
+                                <article class="advantage-card">
+                                    <i class="fas fa-helmet-safety"></i>
+                                    <h3>Досвідчена команда</h3>
+                                    <p>Працюємо по зрозумілому процесу: огляд, прорахунок, погодження, виконання, здача.</p>
+                                </article>
+
+                                <article class="advantage-card">
+                                    <i class="fas fa-clock"></i>
+                                    <h3>Оперативний старт</h3>
+                                    <p>Швидко реагуємо на заявки та підбираємо техніку або бригаду під конкретну задачу.</p>
+                                </article>
+
+                                <article class="advantage-card">
+                                    <i class="fas fa-file-invoice"></i>
+                                    <h3>Прозорий кошторис</h3>
+                                    <p>Пояснюємо, з чого складається вартість: матеріали, доставка, техніка, роботи.</p>
+                                </article>
+
+                                <article class="advantage-card">
+                                    <i class="fas fa-thumbs-up"></i>
+                                    <h3>Акцент на результат</h3>
+                                    <p>Для нас важливо не просто зробити, а здати об’єкт у стані, за який не соромно.</p>
+                                </article>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="section section-process" id="process">
+                        <div class="container">
+                            <div class="section-head">
+                                <div>
+                                    <div class="section-eyebrow">Як ми працюємо</div>
+                                    <h2 class="section-title">Зрозумілий процес без хаосу та затримок</h2>
+                                </div>
+                                <p class="section-text">
+                                    Показуємо етапи співпраці відкрито: від першого контакту до здачі готового об’єкта.
+                                    Це допомагає клієнтам швидше приймати рішення,
+                                    про асфальтування, оренду техніки та дорожні роботи під ключ.
+                                </p>
+                            </div>
+
+                            <div class="process-grid">
+                                {% for step in process_steps %}
+                                <article class="process-step{% if step.featured %} process-step--featured{% endif %}">
+                                    <div class="process-step-media">
+                                        {% if step.image %}
+                                            <img src="{{ step.image.url }}" alt="{{ step.image_alt|default:step.title }}">
+                                        {% elif step.image_url %}
+                                            <img src="{{ step.image_url }}" alt="{{ step.image_alt|default:step.title }}">
+                                        {% else %}
+                                            <div class="process-step-placeholder">
+                                                <i class="fas fa-diagram-project"></i>
+                                            </div>
+                                        {% endif %}
+                                        <span class="process-step-index">{{ forloop.counter|stringformat:"02d" }}</span>
+                                    </div>
+                                    <div class="process-step-body">
+                                        <h3>{{ step.title }}</h3>
+                                        <p class="process-step-short">{{ step.short_description }}</p>
+                                        <p class="process-step-full">{{ step.full_description }}</p>
+                                    </div>
+                                </article>
+                                {% empty %}
+                                <article class="process-step process-step--featured">
+                                    <div class="process-step-media">
+                                        <div class="process-step-placeholder">
+                                            <i class="fas fa-phone-volume"></i>
+                                        </div>
+                                        <span class="process-step-index">01</span>
+                                    </div>
+                                    <div class="process-step-body">
+                                        <h3>Заявка та первинна консультація</h3>
+                                        <p class="process-step-short">Фіксуємо задачу, обсяг робіт і тип об’єкта.</p>
+                                        <p class="process-step-full">Після звернення ми уточнюємо, що саме потрібно: асфальтування, оренда техніки, ремонт покриття або комплексні дорожні роботи.</p>
+                                    </div>
+                                </article>
+                                <article class="process-step">
+                                    <div class="process-step-media">
+                                        <div class="process-step-placeholder">
+                                            <i class="fas fa-ruler-combined"></i>
+                                        </div>
+                                        <span class="process-step-index">02</span>
+                                    </div>
+                                    <div class="process-step-body">
+                                        <h3>Огляд та підготовка кошторису</h3>
+                                        <p class="process-step-short">Оцінюємо основу, техніку, логістику й матеріали.</p>
+                                        <p class="process-step-full">Формуємо зрозумілу пропозицію з етапами, вартістю та термінами, щоб клієнт бачив повну картину ще до старту робіт.</p>
+                                    </div>
+                                </article>
+                                <article class="process-step">
+                                    <div class="process-step-media">
+                                        <div class="process-step-placeholder">
+                                            <i class="fas fa-road"></i>
+                                        </div>
+                                        <span class="process-step-index">03</span>
+                                    </div>
+                                    <div class="process-step-body">
+                                        <h3>Виконання робіт на об’єкті</h3>
+                                        <p class="process-step-short">Працюємо поетапно, акуратно та з контролем якості.</p>
+                                        <p class="process-step-full">Готуємо основу, подаємо техніку, укладаємо матеріали та дотримуємось технології, щоб покриття працювало довго й без переробок.</p>
+                                    </div>
+                                </article>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="section section-contact" id="contacts">
+                        <div class="container">
+                            <div class="contact-layout">
+                                <div class="contact-panel">
+                                    <div class="section-eyebrow">Зв’язок</div>
+                                    <h2 class="section-title">Отримай прорахунок вартості по своєму об’єкту</h2>
+                                    <p class="section-text">
+                                        Напиши, що тобі потрібно: оренда техніки, асфальтування, підготовка основи чи ремонт. Ми зв’яжемось і підготуємо пропозицію.
+                                    </p>
+
+                                    <div class="contact-list">
+                                        <div class="contact-list-item">
+                                            <i class="fas fa-phone"></i>
+                                            <div>
+                                                <strong>Телефон</strong>
+                                                <span>{% if company and company.phone_primary %}{{ company.phone_primary }}{% else %}+38 (000) 000 00 00{% endif %}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="contact-list-item">
+                                            <i class="fas fa-location-dot"></i>
+                                            <div>
+                                                <strong>Локація</strong>
+                                                <span>{% if company and company.address %}{{ company.address }}{% else %}Працюємо по місту та області{% endif %}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="contact-list-item">
+                                            <i class="fas fa-envelope"></i>
+                                            <div>
+                                                <strong>Email</strong>
+                                                <span>info@example.com</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="contact-list-item">
+                                            <i class="fas fa-clock"></i>
+                                            <div>
+                                                <strong>Графік</strong>
+                                                <span>{% if company and company.working_hours %}{{ company.working_hours }}{% else %}Пн–Сб: 08:00–19:00{% endif %}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="contact-form-wrap">
+                                    <div class="form-status" id="contact-form-status" hidden aria-live="polite"></div>
+
+                                    <form action="{% url 'home' %}" method="post" class="contact-form" data-async-form="true">
+                                        {% csrf_token %}
+
+                                        <div class="form-row">
+                                            <label for="name">Ім’я</label>
+                                            <input type="text" id="name" name="name" placeholder="Як до тебе звертатись?" autocomplete="name" required>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <label for="phone">Телефон</label>
+                                            <input type="tel" id="phone" name="phone" placeholder="+380 (__) ___-__-__" inputmode="tel" autocomplete="tel" required>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <label for="email">Email</label>
+                                            <input type="email" id="email" name="email" placeholder="example@gmail.com">
+                                        </div>
+
+                                        <div class="form-row">
+                                            <label for="message">Опиши задачу</label>
+                                            <textarea id="message" name="message" rows="6" minlength="10" placeholder="Наприклад: потрібне асфальтування стоянки 300 м² або оренда котка на 2 дні" required></textarea>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary btn-full">Надіслати заявку</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="section section-blog" id="blog">
+                        <div class="container">
+                            <div class="section-head">
+                                <div>
+                                    <div class="section-eyebrow">Корисні матеріали</div>
+                                    <h2 class="section-title">Блог про техніку, покриття та благоустрій</h2>
+                                </div>
+                                <a href="{% url 'blog_list' %}" class="btn btn-secondary">Увесь блог</a>
+                            </div>
+
+                            <div class="blog-grid">
+                                {% for post in blog_posts %}
+                                <article class="blog-card">
+                                    <div class="blog-media">
+                                        {% if post.image %}
+                                            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                                        {% elif post.image_url %}
+                                            <img src="{{ post.image_url }}" alt="{{ post.title }}">
+                                        {% else %}
+                                            <div class="media-placeholder media-placeholder--blog">
+                                                <i class="fas fa-newspaper"></i>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="blog-body">
+                                        <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+                                        <p>{{ post.short_description|default:"Корисний матеріал про асфальтні роботи, спецтехніку та організацію об’єктів." }}</p>
+                                        <a href="{{ post.get_absolute_url }}" class="inline-link">Читати статтю</a>
+                                    </div>
+                                </article>
+                                {% empty %}
+                                <div class="empty-state">
+                                    <i class="fas fa-newspaper"></i>
+                                    <p>Пости блогу ще не додані.</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+
+                    {% endblock %}

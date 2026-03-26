@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Асфальтова компанія — ROADTECH{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Асфальтування, асфальтирование, оренда спецтехніки, аренда техники для асфальтирования, укладання асфальту, ямковий ремонт і дорожні роботи під ключ для приватних та комерційних об’єктів.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}асфальтування, асфальтирование, укладання асфальту, укладка асфальта, оренда спецтехніки, аренда спецтехники, оренда техніки для асфальтування, аренда техники для асфальтирования, дорожні роботи, дорожные работы, ямковий ремонт, ямочный ремонт, каток в аренду, аренда катка, асфальтні роботи, асфальтные работы{% endblock %}">
+    <meta name="robots" content="{% block meta_robots %}index, follow, max-image-preview:large{% endblock %}">
+    <meta name="author" content="ROADTECH">
+    <meta name="language" content="uk, ru">
+    <link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
+    <link rel="alternate" hreflang="uk-UA" href="{{ request.build_absolute_uri }}">
+    <link rel="alternate" hreflang="ru-UA" href="{{ request.build_absolute_uri }}">
+    <link rel="alternate" hreflang="x-default" href="{{ request.build_absolute_uri }}">
+    <meta property="og:site_name" content="{% if company and company.name %}{{ company.name }}{% else %}ROADTECH{% endif %}">
+    <meta property="og:locale" content="uk_UA">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{% if company and company.name %}{{ company.name }} — {% endif %}Оренда спецтехніки та асфальтування{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Професійне асфальтування, асфальтирование, оренда техніки та дорожні роботи під ключ для дворів, парковок, під’їздів, складів і комерційних територій.{% endblock %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.webp' %}{% endblock %}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}{% if company and company.name %}{{ company.name }} — {% endif %}Оренда спецтехніки та асфальтування{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Асфальтування, оренда спецтехніки, підготовка основи та дорожні роботи під ключ для приватних і комерційних об’єктів.{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.webp' %}{% endblock %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Favicons (PNG/ICO primary) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicons/favicon-16x16.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicons/apple-touch-icon.png' %}">
+    <link rel="shortcut icon" href="{% static 'images/favicons/favicon.ico' %}">
+    <!-- manifest and Safari mask-icon -->
+    <link rel="manifest" href="{% static 'images/favicons/site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'images/favicons/safari-pinned-tab.svg' %}" color="#f59e0b">
+    <meta name="theme-color" content="#f59e0b">
+    {% block extra_head %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "{% if company and company.name %}{{ company.name|escapejs }}{% else %}ROADTECH{% endif %}",
+      "url": "{{ request.build_absolute_uri|escapejs }}",
+      "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.webp' %}",
+      "description": "Асфальтування, асфальтирование, оренда спецтехніки та дорожні роботи під ключ.",
+      "contactPoint": [{
+        "@type": "ContactPoint",
+        "telephone": "{% if company and company.phone_primary %}{{ company.phone_primary|escapejs }}{% else %}+38 (000) 000 00 00{% endif %}",
+        "contactType": "customer service",
+        "areaServed": "UA",
+        "availableLanguage": ["uk", "ru"]
+      }]
+    }
+    </script>
+    {% endblock %}
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="site-header" id="top">
+        <div class="container header-inner">
+            <a href="{% url 'home' %}#top" class="brand">
+                <div class="brand-mark">
+                    <img src="{% static 'images/logo.webp' %}" alt="Спецтехніка та укладання асфальту">
+                </div>
+            </a>
+
+            <button class="nav-toggle" type="button" aria-label="Відкрити меню" data-nav-toggle>
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="main-nav" data-nav>
+                <ul>
+                    <li><a href="{% url 'home' %}#services">Послуги</a></li>
+                    <li><a href="{% url 'home' %}#equipment">Техніка</a></li>
+                    <li><a href="{% url 'home' %}#process">Як працюємо</a></li>
+                    <li><a href="{% url 'home' %}#asphalt">Асфальтування</a></li>
+                    <li><a href="{% url 'home' %}#advantages">Переваги</a></li>
+                    <li><a href="{% url 'home' %}#blog">Блог</a></li>
+                    <li><a href="{% url 'home' %}#contacts">Контакти</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                {% if company and company.phone_primary or company and company.phone_secondary %}
+                    <div class="header-phones" aria-hidden="false">
+                        {% if company.phone_primary %}
+                            <a href="tel:{{ company.phone_primary|cut:" "|cut:"("|cut:")"|cut:"-" }}" class="phone phone--primary" aria-label="Телефон основний">
+                                <i class="fas fa-phone"></i>
+                                <span class="phone-number">{{ company.phone_primary }}</span>
+                            </a>
+                        {% endif %}
+                        {% if company.phone_secondary %}
+                            <a href="tel:{{ company.phone_secondary|cut:" "|cut:"("|cut:")"|cut:"-" }}" class="phone phone--secondary" aria-label="Другий телефон">
+                                <i class="fas fa-phone-alt"></i>
+                                <span class="phone-number">{{ company.phone_secondary }}</span>
+                            </a>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="header-phones">
+                        <a href="tel:+380000000000" class="phone phone--primary">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">+38 (000) 000 00 00</span>
+                        </a>
+                    </div>
+                {% endif %}
+                <a href="{% url 'home' %}#contacts" class="btn btn-primary">Замовити розрахунок</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Fullscreen navigation overlay (controlled by JS) -->
+    <div class="nav-overlay" id="navOverlay" aria-hidden="true">
+        <button class="nav-overlay-close" id="navClose" aria-label="Закрити меню">✕</button>
+        <nav class="nav-overlay-list">
+            <ul>
+                <li><a href="{% url 'home' %}#services">Послуги</a></li>
+                <li><a href="{% url 'home' %}#equipment">Техніка</a></li>
+                <li><a href="{% url 'home' %}#process">Як працюємо</a></li>
+                <li><a href="{% url 'home' %}#asphalt">Асфальтування</a></li>
+                <li><a href="{% url 'home' %}#advantages">Переваги</a></li>
+                <li><a href="{% url 'home' %}#blog">Блог</a></li>
+                <li><a href="{% url 'home' %}#contacts">Контакти</a></li>
+            </ul>
+            <div class="nav-overlay-contact">
+                {% if company %}
+                    {% if company.address %}<div class="nav-address">📍 {{ company.address }}</div>{% endif %}
+                    {% if company.working_hours %}<div class="nav-hours">⏰ {{ company.working_hours }}</div>{% endif %}
+                    <div class="nav-phones">
+                        {% if company.phone_primary %}<a href="tel:{{ company.phone_primary }}">{{ company.phone_primary }}</a>{% endif %}
+                        {% if company.phone_secondary %} <a href="tel:{{ company.phone_secondary }}">{{ company.phone_secondary }}</a>{% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </nav>
+    </div>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-shell">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="{% url 'home' %}#top" class="footer-logo">
+                        <img src="{% static 'images/logo.webp' %}" alt="ROADTECH">
+                    </a>
+                    <p class="footer-text">
+                        {% if company and company.name %}{{ company.name }}{% else %}ROADTECH{% endif %} виконує асфальтні роботи,
+                        оренду спецтехніки та підготовку основи для приватних, комерційних і промислових об’єктів.
+                    </p>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Навігація</h3>
+                    <div class="footer-links">
+                        <a href="{% url 'home' %}#services">Послуги</a>
+                        <a href="{% url 'home' %}#equipment">Техніка</a>
+                        <a href="{% url 'home' %}#asphalt">Асфальтування</a>
+                        <a href="{% url 'home' %}#blog">Блог</a>
+                        <a href="{% url 'home' %}#contacts">Контакти</a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Напрямки</h3>
+                    <div class="footer-links">
+                        <span>Оренда котків та спецтехніки</span>
+                        <span>Ямковий ремонт</span>
+                        <span>Укладання асфальту</span>
+                        <span>Підготовка та ущільнення основи</span>
+                    </div>
+                </div>
+
+                <div class="footer-column footer-column--contact">
+                    <h3>Зв’язок</h3>
+                    <div class="footer-contact-list">
+                        <div>
+                            <strong>Телефон</strong>
+                            <a href="{% url 'home' %}#contacts">
+                                {% if company and company.phone_primary %}{{ company.phone_primary }}{% else %}+38 (000) 000 00 00{% endif %}
+                            </a>
+                        </div>
+                        <div>
+                            <strong>Локація</strong>
+                            <span>{% if company and company.address %}{{ company.address }}{% else %}Працюємо по місту та області{% endif %}</span>
+                        </div>
+                        <div>
+                            <strong>Графік</strong>
+                            <span>{% if company and company.working_hours %}{{ company.working_hours }}{% else %}Пн–Сб: 08:00–19:00{% endif %}</span>
+                        </div>
+                    </div>
+                    <a href="{% url 'home' %}#contacts" class="footer-cta">Отримати прорахунок</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© {% if company and company.name %}{{ company.name }}{% else %}ROADTECH{% endif %} — Оренда техніки та асфальтні роботи</p>
+                <div class="footer-meta-links">
+                    <a href="https://cherryx-digital.com/" target="_blank" rel="noopener noreferrer" class="footer-credit">
+                        Created by <span>cherryx-digital</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
