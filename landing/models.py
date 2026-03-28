@@ -147,3 +147,59 @@ class WorkProcessStep(models.Model):
         verbose_name = "Крок процесу"
         verbose_name_plural = "Кроки процесу"
         ordering = ['order', 'id']
+
+
+class EvacuatorSection(models.Model):
+    eyebrow = models.CharField(max_length=120, default="Доставка техніки та евакуація", verbose_name="Надзаголовок")
+    title = models.CharField(
+        max_length=255,
+        default="Евакуатор для перевезення техніки на об’єкт і окремих виїздів для авто",
+        verbose_name="Заголовок секції",
+    )
+    description = models.TextField(
+        default=(
+            "Коли замовляють техніку для асфальтних робіт, ми допомагаємо організувати її доставку "
+            "евакуатором на об’єкт. Окремо також приймаємо замовлення на евакуацію легкових авто, "
+            "кросоверів, бусів і комерційного транспорту по місту та за його межами."
+        ),
+        verbose_name="Опис секції",
+    )
+    cta_text = models.CharField(max_length=120, default="Замовити евакуатор", verbose_name="Текст кнопки")
+    show_on_site = models.BooleanField(default=True, verbose_name="Показувати на сайті")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Оновлено")
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Секція евакуатора"
+        verbose_name_plural = "Секція евакуатора"
+
+
+class EvacuatorOffer(models.Model):
+    name = models.CharField(max_length=200, verbose_name="Назва")
+    subtitle = models.CharField(max_length=255, blank=True, verbose_name="Короткий підзаголовок")
+    description = models.TextField(verbose_name="Опис")
+    price_text = models.CharField(max_length=120, verbose_name="Текст ціни")
+    image = models.ImageField(upload_to='evacuator/', blank=True, null=True, verbose_name="Зображення")
+    image_url = models.URLField(blank=True, null=True, verbose_name="Посилання на зображення")
+    image_alt = models.CharField(max_length=255, blank=True, verbose_name="Alt для SEO")
+    order = models.PositiveIntegerField(default=0, verbose_name="Порядок")
+    featured = models.BooleanField(default=False, verbose_name="Виділити картку")
+    show_on_site = models.BooleanField(default=True, verbose_name="Показувати на сайті")
+
+    def save(self, *args, **kwargs):
+        if self.image and not self.image.name.lower().endswith('.webp'):
+            converted = convert_image_to_webp(self.image)
+            if converted:
+                file_name, content = converted
+                self.image.save(file_name, content, save=False)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Картка евакуатора"
+        verbose_name_plural = "Картки евакуатора"
+        ordering = ['order', 'id']

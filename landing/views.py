@@ -2,7 +2,16 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 import re
-from .models import EquipmentRental, AsphaltType, ContactRequest, BlogPost, CompanyInfo, WorkProcessStep
+from .models import (
+    EquipmentRental,
+    AsphaltType,
+    ContactRequest,
+    BlogPost,
+    CompanyInfo,
+    WorkProcessStep,
+    EvacuatorSection,
+    EvacuatorOffer,
+)
 from django.db.utils import OperationalError
 
 # Create your views here.
@@ -83,6 +92,8 @@ def home(request):
     asphalt_types = AsphaltType.objects.all()
     blog_posts = BlogPost.objects.all()[:3]  # Показать последние 3 поста
     process_steps = WorkProcessStep.objects.all()
+    evacuator_section = EvacuatorSection.objects.filter(show_on_site=True).order_by('-updated_at').first()
+    evacuator_offers = EvacuatorOffer.objects.filter(show_on_site=True)
     try:
         company = CompanyInfo.objects.filter(show_on_site=True).order_by('-updated_at').first()
     except OperationalError:
@@ -92,6 +103,8 @@ def home(request):
         'asphalt_types': asphalt_types,
         'blog_posts': blog_posts,
         'process_steps': process_steps,
+        'evacuator_section': evacuator_section,
+        'evacuator_offers': evacuator_offers,
         'company': company,
     }
     return render(request, 'landing/home.html', context)

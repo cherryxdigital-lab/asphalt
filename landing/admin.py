@@ -1,6 +1,15 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import EquipmentRental, AsphaltType, ContactRequest, BlogPost, CompanyInfo, WorkProcessStep
+from .models import (
+    EquipmentRental,
+    AsphaltType,
+    ContactRequest,
+    BlogPost,
+    CompanyInfo,
+    WorkProcessStep,
+    EvacuatorSection,
+    EvacuatorOffer,
+)
 
 @admin.register(EquipmentRental)
 class EquipmentRentalAdmin(admin.ModelAdmin):
@@ -146,6 +155,42 @@ class WorkProcessStepAdmin(admin.ModelAdmin):
         ('Контент', {'fields': ('title', 'short_description', 'full_description')}),
         ('Зображення', {'fields': ('image', 'image_url', 'image_alt', 'image_preview')}),
         ('Налаштування', {'fields': ('order', 'featured')}),
+    )
+
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" style="max-width: 120px; max-height: 90px; border-radius: 10px;" />', obj.image.url)
+        if obj.image_url:
+            return format_html('<img src="{}" style="max-width: 120px; max-height: 90px; border-radius: 10px;" />', obj.image_url)
+        return "Немає зображення"
+    image_preview.short_description = "Попередній перегляд"
+
+
+@admin.register(EvacuatorSection)
+class EvacuatorSectionAdmin(admin.ModelAdmin):
+    list_display = ('title', 'cta_text', 'show_on_site', 'updated_at')
+    list_editable = ('show_on_site',)
+    readonly_fields = ('updated_at',)
+    search_fields = ('eyebrow', 'title', 'description', 'cta_text')
+    fieldsets = (
+        ('Контент секції', {'fields': ('eyebrow', 'title', 'description', 'cta_text', 'show_on_site')}),
+        ('Системні', {'fields': ('updated_at',)}),
+    )
+
+
+@admin.register(EvacuatorOffer)
+class EvacuatorOfferAdmin(admin.ModelAdmin):
+    list_display = ('order', 'name', 'price_text', 'featured', 'show_on_site', 'image_preview')
+    list_display_links = ('name',)
+    list_editable = ('order', 'featured', 'show_on_site')
+    ordering = ('order', 'id')
+    search_fields = ('name', 'subtitle', 'description', 'price_text', 'image_alt')
+    readonly_fields = ('image_preview',)
+
+    fieldsets = (
+        ('Контент', {'fields': ('name', 'subtitle', 'description', 'price_text')}),
+        ('Зображення', {'fields': ('image', 'image_url', 'image_alt', 'image_preview')}),
+        ('Налаштування', {'fields': ('order', 'featured', 'show_on_site')}),
     )
 
     def image_preview(self, obj):

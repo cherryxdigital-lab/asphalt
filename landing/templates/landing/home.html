@@ -505,6 +505,97 @@
                         </div>
                     </section>
 
+                    <section class="section section-evacuator" id="evacuator">
+                        <div class="container">
+                            <div class="evacuator-shell">
+                                <div class="section-head evacuator-head">
+                                    <div>
+                                        <div class="section-eyebrow">
+                                            {% if evacuator_section and evacuator_section.eyebrow %}
+                                                {{ evacuator_section.eyebrow }}
+                                            {% else %}
+                                                Доставка техніки та евакуація
+                                            {% endif %}
+                                        </div>
+                                        <h2 class="section-title evacuator-title">
+                                            {% if evacuator_section and evacuator_section.title %}
+                                                {{ evacuator_section.title }}
+                                            {% else %}
+                                                Евакуатор для перевезення техніки на об’єкт і окремих виїздів для авто
+                                            {% endif %}
+                                        </h2>
+                                    </div>
+
+                                    <div class="evacuator-copy">
+                                        <p class="section-text evacuator-text">
+                                            {% if evacuator_section and evacuator_section.description %}
+                                                {{ evacuator_section.description }}
+                                            {% else %}
+                                                Коли замовляють техніку для асфальтних робіт, ми допомагаємо організувати її доставку
+                                                евакуатором на об’єкт. Окремо також приймаємо замовлення на евакуацію легкових авто,
+                                                кросоверів, бусів і комерційного транспорту по місту та за його межами.
+                                            {% endif %}
+                                        </p>
+
+                                        <div class="evacuator-tags">
+                                            <span class="evacuator-tag">Доставка техніки на об’єкт</span>
+                                            <span class="evacuator-tag">Окремі виїзди для авто</span>
+                                            <span class="evacuator-tag">Місто та область</span>
+                                        </div>
+
+                                        <a href="#contacts" class="btn btn-primary">
+                                            {% if evacuator_section and evacuator_section.cta_text %}
+                                                {{ evacuator_section.cta_text }}
+                                            {% else %}
+                                                Замовити евакуатор
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="evacuator-grid">
+                                    {% for offer in evacuator_offers %}
+                                    <article class="evacuator-card{% if offer.featured %} evacuator-card--featured{% endif %}{% if forloop.first %} evacuator-card--lead{% endif %}">
+                                        <div class="evacuator-card__media">
+                                            {% if offer.image %}
+                                                <img src="{{ offer.image.url }}" alt="{{ offer.image_alt|default:offer.name }}">
+                                            {% elif offer.image_url %}
+                                                <img src="{{ offer.image_url }}" alt="{{ offer.image_alt|default:offer.name }}">
+                                            {% else %}
+                                                <div class="media-placeholder media-placeholder--evacuator">
+                                                    <i class="fas fa-truck-ramp-box"></i>
+                                                </div>
+                                            {% endif %}
+                                            <span class="evacuator-card__badge">{{ offer.price_text }}</span>
+                                        </div>
+
+                                        <div class="evacuator-card__body">
+                                            <div class="evacuator-card__head">
+                                                <h3>{{ offer.name }}</h3>
+                                                {% if offer.subtitle %}
+                                                    <p class="evacuator-card__subtitle">{{ offer.subtitle }}</p>
+                                                {% endif %}
+                                            </div>
+
+                                            <p class="evacuator-card__description">{{ offer.description }}</p>
+
+                                            <div class="evacuator-card__footer">
+                                                <span class="evacuator-card__price">{{ offer.price_text }}</span>
+                                                <a href="#contacts" class="inline-link">Замовити виїзд</a>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    {% empty %}
+                                    <div class="empty-state">
+                                        <i class="fas fa-truck-ramp-box"></i>
+                                        <p>Додай картки евакуатора в адмінці, і секція одразу з’явиться на сайті.</p>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
                     <section class="section section-blog" id="blog">
                         <div class="container">
                             <div class="section-head">
