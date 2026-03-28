@@ -30,7 +30,24 @@ def convert_image_to_webp(field_file, quality: int = 86):
     file_name = f"{Path(field_file.name).stem}.webp"
     return file_name, ContentFile(output.read())
 
-class EquipmentRental(models.Model):
+
+class WebPImageSaveMixin:
+    image_field_name = 'image'
+
+    def convert_image_field_to_webp(self):
+        image_field = getattr(self, self.image_field_name, None)
+        if not image_field or image_field.name.lower().endswith('.webp'):
+            return
+
+        converted = convert_image_to_webp(image_field)
+        if not converted:
+            return
+
+        file_name, content = converted
+        image_field.save(file_name, content, save=False)
+
+
+class EquipmentRental(WebPImageSaveMixin, models.Model):
     name = models.CharField(max_length=200, verbose_name="Назва техніки")
     description = models.TextField(verbose_name="Опис")
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Ціна (грн)")
@@ -38,6 +55,10 @@ class EquipmentRental(models.Model):
     min_hours = models.PositiveIntegerField(blank=True, null=True, verbose_name="Мінімум годин")
     image = models.ImageField(upload_to='equipment/', blank=True, null=True, verbose_name="Зображення")
     image_url = models.URLField(blank=True, null=True, verbose_name="Посилання на зображення (якщо немає файлу)")
+
+    def save(self, *args, **kwargs):
+        self.convert_image_field_to_webp()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -47,12 +68,16 @@ class EquipmentRental(models.Model):
         verbose_name_plural = "Оренда техніки"
 
 
-class AsphaltType(models.Model):
+class AsphaltType(WebPImageSaveMixin, models.Model):
     name = models.CharField(max_length=200, verbose_name="Назва асфальту")
     description = models.TextField(verbose_name="Опис")
     price_per_sqm = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Ціна за кв.м (грн)")
     image = models.ImageField(upload_to='asphalt/', blank=True, null=True, verbose_name="Зображення")
     image_url = models.URLField(blank=True, null=True, verbose_name="Посилання на зображення (якщо немає файлу)")
+
+    def save(self, *args, **kwargs):
+        self.convert_image_field_to_webp()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -78,7 +103,7 @@ class ContactRequest(models.Model):
         verbose_name_plural = "Заявки"
 
 
-class BlogPost(models.Model):
+class BlogPost(WebPImageSaveMixin, models.Model):
     title = models.CharField(max_length=200, verbose_name="Назва статті")
     slug = models.SlugField(unique=True, blank=True, verbose_name="Слаг")
     short_description = models.TextField(verbose_name="Короткий опис")
@@ -88,6 +113,7 @@ class BlogPost(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата створення")
 
     def save(self, *args, **kwargs):
+        self.convert_image_field_to_webp()
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
@@ -122,7 +148,7 @@ class CompanyInfo(models.Model):
         verbose_name_plural = "Інформація про компанію"
 
 
-class WorkProcessStep(models.Model):
+class WorkProcessStep(WebPImageSaveMixin, models.Model):
     title = models.CharField(max_length=200, verbose_name="Заголовок кроку")
     short_description = models.CharField(max_length=255, verbose_name="Короткий опис")
     full_description = models.TextField(verbose_name="Розгорнутий опис")
@@ -133,11 +159,7 @@ class WorkProcessStep(models.Model):
     featured = models.BooleanField(default=False, verbose_name="Виділений крок")
 
     def save(self, *args, **kwargs):
-        if self.image and not self.image.name.lower().endswith('.webp'):
-            converted = convert_image_to_webp(self.image)
-            if converted:
-                file_name, content = converted
-                self.image.save(file_name, content, save=False)
+        self.convert_image_field_to_webp()
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -176,7 +198,7 @@ class EvacuatorSection(models.Model):
         verbose_name_plural = "Секція евакуатора"
 
 
-class EvacuatorOffer(models.Model):
+class EvacuatorOffer(WebPImageSaveMixin, models.Model):
     name = models.CharField(max_length=200, verbose_name="Назва")
     subtitle = models.CharField(max_length=255, blank=True, verbose_name="Короткий підзаголовок")
     description = models.TextField(verbose_name="Опис")
@@ -189,11 +211,7 @@ class EvacuatorOffer(models.Model):
     show_on_site = models.BooleanField(default=True, verbose_name="Показувати на сайті")
 
     def save(self, *args, **kwargs):
-        if self.image and not self.image.name.lower().endswith('.webp'):
-            converted = convert_image_to_webp(self.image)
-            if converted:
-                file_name, content = converted
-                self.image.save(file_name, content, save=False)
+        self.convert_image_field_to_webp()
         super().save(*args, **kwargs)
 
     def __str__(self):

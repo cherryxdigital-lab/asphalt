@@ -1,7 +1,10 @@
 from django.test import TestCase
 from django.urls import reverse
+from django.core.files.uploadedfile import SimpleUploadedFile
+from PIL import Image
+from io import BytesIO
 
-from .models import EvacuatorOffer, EvacuatorSection
+from .models import BlogPost, EvacuatorOffer, EvacuatorSection
 
 
 class HomePageEvacuatorTests(TestCase):
@@ -26,3 +29,26 @@ class HomePageEvacuatorTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Евакуатор для міста та області")
         self.assertContains(response, "Малий евакуатор")
+
+
+class WebPConversionTests(TestCase):
+    def test_blog_post_image_is_converted_to_webp(self):
+        image_io = BytesIO()
+        image = Image.new('RGB', (100, 100), color='red')
+        image.save(image_io, format='JPEG')
+        image_io.seek(0)
+
+        uploaded = SimpleUploadedFile(
+            'test-image.jpg',
+            image_io.read(),
+            content_type='image/jpeg',
+        )
+
+        post = BlogPost.objects.create(
+            title='Test Blog Post',
+            short_description='Short description',
+            full_description='Full description',
+            image=uploaded,
+        )
+
+        self.assertTrue(post.image.name.endswith('.webp'))
