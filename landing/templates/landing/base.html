@@ -61,7 +61,7 @@
 <body>
     <header class="site-header" id="top">
         <div class="container header-inner">
-            <a href="{% url 'home' %}#top" class="brand">
+            <a href="{% url 'home' %}#hero" class="brand">
                 <div class="brand-mark">
                     <img src="{% static 'images/logo.webp' %}" alt="Спецтехніка та укладання асфальту">
                 </div>
@@ -77,11 +77,13 @@
                 <ul>
                     <li><a href="{% url 'home' %}#services">Послуги</a></li>
                     <li><a href="{% url 'home' %}#equipment">Техніка</a></li>
-                    <li><a href="{% url 'home' %}#process">Як працюємо</a></li>
+                    <li><a href="{% url 'home' %}#calculator">Калькулятор</a></li>
                     <li><a href="{% url 'home' %}#asphalt">Асфальтування</a></li>
+                    <li><a href="{% url 'home' %}#process">Як працюємо</a></li>
                     <li><a href="{% url 'home' %}#advantages">Переваги</a></li>
-                    <li><a href="{% url 'home' %}#blog">Блог</a></li>
                     <li><a href="{% url 'home' %}#contacts">Контакти</a></li>
+                    <li><a href="{% url 'home' %}#blog">Блог</a></li>
+
                 </ul>
             </nav>
 
@@ -119,13 +121,14 @@
         <button class="nav-overlay-close" id="navClose" aria-label="Закрити меню">✕</button>
         <nav class="nav-overlay-list">
             <ul>
-                <li><a href="{% url 'home' %}#services">Послуги</a></li>
-                <li><a href="{% url 'home' %}#equipment">Техніка</a></li>
-                <li><a href="{% url 'home' %}#process">Як працюємо</a></li>
-                <li><a href="{% url 'home' %}#asphalt">Асфальтування</a></li>
-                <li><a href="{% url 'home' %}#advantages">Переваги</a></li>
-                <li><a href="{% url 'home' %}#blog">Блог</a></li>
-                <li><a href="{% url 'home' %}#contacts">Контакти</a></li>
+                    <li><a href="{% url 'home' %}#services">Послуги</a></li>
+                    <li><a href="{% url 'home' %}#equipment">Техніка</a></li>
+                    <li><a href="{% url 'home' %}#calculator">Калькулятор</a></li>
+                    <li><a href="{% url 'home' %}#asphalt">Асфальтування</a></li>
+                    <li><a href="{% url 'home' %}#process">Як працюємо</a></li>
+                    <li><a href="{% url 'home' %}#advantages">Переваги</a></li>
+                    <li><a href="{% url 'home' %}#contacts">Контакти</a></li>
+                    <li><a href="{% url 'home' %}#blog">Блог</a></li>
             </ul>
             <div class="nav-overlay-contact">
                 {% if company %}
@@ -148,7 +151,7 @@
         <div class="container footer-shell">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <a href="{% url 'home' %}#top" class="footer-logo">
+                    <a href="{% url 'home' %}#hero" class="footer-logo">
                         <img src="{% static 'images/logo.webp' %}" alt="ROADTECH">
                     </a>
                     <p class="footer-text">
@@ -183,9 +186,31 @@
                     <div class="footer-contact-list">
                         <div>
                             <strong>Телефон</strong>
-                            <a href="{% url 'home' %}#contacts">
-                                {% if company and company.phone_primary %}{{ company.phone_primary }}{% else %}+38 (000) 000 00 00{% endif %}
-                            </a>
+                                {% if company and company.phone_primary %}
+                                    <a href="tel:{{ company.phone_primary|cut:' '|cut:'('|cut:')'|cut:'-' }}">
+                                        {{ company.phone_primary }}
+                                    </a>
+                                {% endif %}
+
+                                {% if company and company.phone_secondary %}
+                                    
+                                    <a href="tel:{{ company.phone_secondary|cut:' '|cut:'('|cut:')'|cut:'-' }}">
+                                        {{ company.phone_secondary }}
+                                    </a>
+                                {% endif %}
+                        </div>
+                        <div>
+                            <strong>Email</strong>
+
+                            {% if company and company.email %}
+                                <a href="mailto:{{ company.email }}">
+                                    {{ company.email }}
+                                </a>
+                            {% else %}
+                                <a href="mailto:winkast.com.ua@gmail.com">
+                                    winkast.com.ua@gmail.com
+                                </a>
+                            {% endif %}
                         </div>
                         <div>
                             <strong>Локація</strong>
@@ -204,7 +229,7 @@
                 <p>© {% if company and company.name %}{{ company.name }}{% else %}ROADTECH{% endif %} — Оренда техніки та асфальтні роботи</p>
                 <div class="footer-meta-links">
                     <a href="https://cherryx-digital.com/" target="_blank" rel="noopener noreferrer" class="footer-credit">
-                        Created by <span>cherryx-digital</span>
+                        Powered by <span>CherryX-Digital</span>
                     </a>
                 </div>
             </div>
@@ -212,5 +237,6 @@
     </footer>
 
     <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/landing-modal.js' %}"></script>
 </body>
 </html>

@@ -76,21 +76,55 @@ document.addEventListener('DOMContentLoaded', function() {
     const navOverlay = document.getElementById('navOverlay');
     const navClose = document.getElementById('navClose');
     const navOverlayLinks = navOverlay ? Array.from(navOverlay.querySelectorAll('a')) : [];
+    let lastFocusedNavElement = null;
 
     function openNav() {
+        lastFocusedNavElement = document.activeElement;
+
         document.body.classList.add('nav-open');
+
         if (navOverlay) {
             navOverlay.setAttribute('aria-hidden', 'false');
         }
-        navToggle.setAttribute('aria-expanded', 'true');
+
+        if (navToggle) {
+            navToggle.setAttribute('aria-expanded', 'true');
+        }
+
+        requestAnimationFrame(() => {
+            if (navClose) navClose.focus();
+        });
     }
 
     function closeNav() {
-        document.body.classList.remove('nav-open');
-        if (navOverlay) {
-            navOverlay.setAttribute('aria-hidden', 'true');
+        if (document.activeElement && navOverlay && navOverlay.contains(document.activeElement)) {
+            document.activeElement.blur();
         }
-        navToggle.setAttribute('aria-expanded', 'false');
+
+        if (navClose) {
+            navClose.blur();
+        }
+
+        document.body.classList.remove('nav-open');
+
+        if (navToggle) {
+            navToggle.setAttribute('aria-expanded', 'false');
+            navToggle.focus();
+        }
+
+        requestAnimationFrame(() => {
+            if (navOverlay) {
+                navOverlay.setAttribute('aria-hidden', 'true');
+            }
+
+            if (
+                lastFocusedNavElement &&
+                typeof lastFocusedNavElement.focus === 'function' &&
+                lastFocusedNavElement !== navClose
+            ) {
+                lastFocusedNavElement.focus();
+            }
+        });
     }
 
     if (navToggle && navOverlay) {
@@ -485,41 +519,144 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    if (calcArea) calcArea.addEventListener('input', calculate);
-    if (calcSelectedEquipment) {
-        calcSelectedEquipment.addEventListener('input', function(e) {
-            const target = e.target;
-            const configId = target.getAttribute('data-config-id');
-            const field = target.getAttribute('data-config-field');
-            if (!configId || !field || !selectedEquipmentState.has(configId)) return;
+function sanitizeNonNegativeNumberInput(input) {
+    if (!input) return;
+    let value = String(input.value || '');
 
-            const option = equipmentOptions.find((item) => item.getAttribute('data-id') === configId);
-            const minHours = readOptionData(option, 'min-hours') || 0;
-            const state = selectedEquipmentState.get(configId);
+    // убираем минусы
+    value = value.replace(/-/g, '');
 
-            if (field === 'duration') {
-                state.duration = Math.max(parseFloat(target.value) || 0, Math.max(1, minHours));
-                target.value = state.duration;
-            }
-            if (field === 'quantity') {
-                state.quantity = Math.max(parseInt(target.value, 10) || 1, 1);
-                target.value = state.quantity;
-            }
-
-            selectedEquipmentState.set(configId, state);
-            calculate();
-        });
-
-        calcSelectedEquipment.addEventListener('click', function(e) {
-            const removeId = e.target.getAttribute('data-remove-equipment');
-            if (!removeId) return;
-            selectedEquipmentState.delete(removeId);
-            const option = equipmentOptions.find((item) => item.getAttribute('data-id') === removeId);
-            if (option) option.classList.remove('selected');
-            renderSelectedEquipment();
-            calculate();
-        });
+    // оставляем только цифры и одну точку
+    value = value.replace(/[^0-9.]/g, '');
+    const parts = value.split('.');
+    if (parts.length > 2) {
+        value = parts[0] + '.' + parts.slice(1).join('');
     }
+
+    input.value = value;
+}
+
+function normalizeAreaOnBlur() {
+    if (!calcArea) return;
+
+    sanitizeNonNegativeNumberInput(calcArea);
+
+    const raw = String(calcArea.value || '').trim();
+
+    if (!raw) {
+        calcArea.value = '0';
+        calculate();
+        return;
+    }
+
+    const parsed = parseFloat(raw);
+    calcArea.value = (!isNaN(parsed) && parsed >= 0) ? String(parsed) : '0';
+    calculate();
+}
+
+if (calcArea) {
+    calcArea.addEventListener('input', function() {
+        sanitizeNonNegativeNumberInput(calcArea);
+
+        const raw = String(calcArea.value || '').trim();
+        if (!raw) return; // даём стереть во время ввода
+
+        const parsed = parseFloat(raw);
+        if (!isNaN(parsed) && parsed < 0) {
+            calcArea.value = '0';
+        }
+
+        calculate();
+    });
+
+    calcArea.addEventListener('blur', normalizeAreaOnBlur);
+}
+
+if (calcSelectedEquipment) {
+    calcSelectedEquipment.addEventListener('input', function(e) {
+        const target = e.target;
+        const configId = target.getAttribute('data-config-id');
+        const field = target.getAttribute('data-config-field');
+        if (!configId || !field || !selectedEquipmentState.has(configId)) return;
+
+        sanitizeNonNegativeNumberInput(target);
+
+        // Во время ввода разрешаем временно пустое значение,
+        // чтобы пользователь мог удалить и ввести новое
+        if (String(target.value).trim() === '') return;
+
+        const option = equipmentOptions.find((item) => item.getAttribute('data-id') === configId);
+        const minHours = Math.max(1, readOptionData(option, 'min-hours') || 0);
+        const state = selectedEquipmentState.get(configId);
+
+        if (field === 'duration') {
+            const parsed = parseFloat(target.value);
+            if (isNaN(parsed)) return;
+            state.duration = parsed < 0 ? 0 : parsed;
+        }
+
+        if (field === 'quantity') {
+            const parsed = parseInt(target.value, 10);
+            if (isNaN(parsed)) return;
+            state.quantity = parsed < 0 ? 0 : parsed;
+        }
+
+        selectedEquipmentState.set(configId, state);
+        calculate();
+    });
+
+    calcSelectedEquipment.addEventListener('blur', function(e) {
+        const target = e.target;
+        if (!target.matches('input[data-config-id][data-config-field]')) return;
+
+        const configId = target.getAttribute('data-config-id');
+        const field = target.getAttribute('data-config-field');
+        if (!configId || !field || !selectedEquipmentState.has(configId)) return;
+
+        sanitizeNonNegativeNumberInput(target);
+
+        const option = equipmentOptions.find((item) => item.getAttribute('data-id') === configId);
+        const minHours = Math.max(1, readOptionData(option, 'min-hours') || 0);
+        const state = selectedEquipmentState.get(configId);
+
+        if (field === 'duration') {
+            const raw = String(target.value || '').trim();
+            let nextValue = raw === '' ? minHours : parseFloat(raw);
+
+            if (isNaN(nextValue) || nextValue < minHours) {
+                nextValue = minHours;
+            }
+
+            state.duration = nextValue;
+            target.value = String(nextValue);
+        }
+
+        if (field === 'quantity') {
+            const raw = String(target.value || '').trim();
+            let nextValue = raw === '' ? 1 : parseInt(raw, 10);
+
+            if (isNaN(nextValue) || nextValue < 1) {
+                nextValue = 1;
+            }
+
+            state.quantity = nextValue;
+            target.value = String(nextValue);
+        }
+
+        selectedEquipmentState.set(configId, state);
+        calculate();
+    }, true);
+
+    calcSelectedEquipment.addEventListener('click', function(e) {
+        const removeId = e.target.getAttribute('data-remove-equipment');
+        if (!removeId) return;
+        selectedEquipmentState.delete(removeId);
+        const option = equipmentOptions.find((item) => item.getAttribute('data-id') === removeId);
+        if (option) option.classList.remove('selected');
+        renderSelectedEquipment();
+        calculate();
+    });
+}
 
     if (calcBtn) calcBtn.addEventListener('click', function(e) { e.preventDefault(); calculate(); });
 
@@ -546,8 +683,14 @@ document.addEventListener('DOMContentLoaded', function() {
             lines.push(`Орієнтовна сума: ${formatPrice(result.total)}`);
             messageField.value = lines.join('\n');
         }
-        const contacts = document.getElementById('contacts');
-        if (contacts) contacts.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const form = document.getElementById('contact-form');
+
+        if (form) {
+            form.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
         const nameField = document.getElementById('name'); if (nameField) nameField.focus();
     });
 

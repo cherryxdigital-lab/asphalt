@@ -8,7 +8,7 @@
 {% block og_description %}Професійне асфальтування, асфальтирование, оренда спецтехніки, укладання асфальту, підготовка основи та ремонт покриття для приватних і комерційних об’єктів.{% endblock %}
 
 {% block content %}
-<section class="hero">
+<section class="hero" id="hero">
     <div class="container hero-grid">
         <div class="hero-content">
             <div class="eyebrow">Надійний підрядник для приватних та комерційних об’єктів</div>
@@ -109,7 +109,7 @@
                                     <h2 class="section-title">Техніка в оренду для різних типів робіт</h2>
                                 </div>
                                 <p class="section-text">
-                                    Обирай техніку під свій об’єкт. Для кожної позиції можна вказати опис, ціну та фото — твоя Django-структура вже це підтримує.
+                                    Обирай техніку під свій об’єкт.
                                 </p>
                             </div>
 
@@ -118,9 +118,25 @@
                                 <article class="equipment-card">
                                     <div class="equipment-media">
                                         {% if equipment.image %}
-                                            <img src="{{ equipment.image.url }}" alt="{{ equipment.name }}">
+                                            <button
+                                                type="button"
+                                                class="equipment-image-trigger"
+                                                data-image="{{ equipment.image.url }}"
+                                                data-alt="{{ equipment.name|escape }}"
+                                                aria-label="Відкрити фото {{ equipment.name }}"
+                                            >
+                                                <img src="{{ equipment.image.url }}" alt="{{ equipment.name }}">
+                                            </button>
                                         {% elif equipment.image_url %}
-                                            <img src="{{ equipment.image_url }}" alt="{{ equipment.name }}">
+                                            <button
+                                                type="button"
+                                                class="equipment-image-trigger"
+                                                data-image="{{ equipment.image_url }}"
+                                                data-alt="{{ equipment.name|escape }}"
+                                                aria-label="Відкрити фото {{ equipment.name }}"
+                                            >
+                                                <img src="{{ equipment.image_url }}" alt="{{ equipment.name }}">
+                                            </button>
                                         {% else %}
                                             <div class="media-placeholder">
                                                 <i class="fas fa-truck-front"></i>
@@ -210,7 +226,7 @@
                                     <div class="form-row calc-selected-row">
                                         <label>Параметри вибраної техніки</label>
                                         <div id="calc-selected-equipment" class="calc-selected-equipment">
-                                            <p class="muted">Оберіть одну або кілька позицій техніки, і тут з’являться години або зміни для кожної.</p>
+                                            <p class="muted">Оберіть одну або кілька позицій техніки — тут з’являться години або зміни для кожної.</p>
                                         </div>
                                     </div>
 
@@ -403,9 +419,9 @@
                             <div class="contact-layout">
                                 <div class="contact-panel">
                                     <div class="section-eyebrow">Зв’язок</div>
-                                    <h2 class="section-title">Отримай прорахунок вартості по своєму об’єкту</h2>
+                                    <h2 class="section-title">Отримай прорахунок вартості для свого об’єкта</h2>
                                     <p class="section-text">
-                                        Напиши, що тобі потрібно: оренда техніки, асфальтування, підготовка основи чи ремонт. Ми зв’яжемось і підготуємо пропозицію.
+                                        Напиши, що тобі потрібно: оренда техніки, асфальтування, підготовка основи чи ремонт. Ми зв’яжемося і підготуємо пропозицію.
                                     </p>
 
                                     <div class="contact-list">
@@ -413,7 +429,18 @@
                                             <i class="fas fa-phone"></i>
                                             <div>
                                                 <strong>Телефон</strong>
-                                                <span>{% if company and company.phone_primary %}{{ company.phone_primary }}{% else %}+38 (000) 000 00 00{% endif %}</span>
+
+                                                {% if company and company.phone_primary %}
+                                                    <a href="tel:{{ company.phone_primary|cut:' '|cut:'('|cut:')' }}" class="inline-link">
+                                                        {{ company.phone_primary }}
+                                                    </a>
+                                                {% endif %}
+
+                                                {% if company and company.phone_secondary %}
+                                                    <a href="tel:{{ company.phone_secondary|cut:' '|cut:'('|cut:')' }}" class="inline-link">
+                                                        {{ company.phone_secondary }}
+                                                    </a>
+                                                {% endif %}
                                             </div>
                                         </div>
 
@@ -429,7 +456,9 @@
                                             <i class="fas fa-envelope"></i>
                                             <div>
                                                 <strong>Email</strong>
-                                                <span>info@example.com</span>
+                                                    <a href="mailto:winkast.com.ua@gmail.com" class="inline-link">
+                                                        winkast.com.ua@gmail.com
+                                                    </a>
                                             </div>
                                         </div>
 
@@ -443,7 +472,7 @@
                                     </div>
                                 </div>
 
-                                <div class="contact-form-wrap">
+                                <div class="contact-form-wrap" id="contact-form">
                                     <div class="form-status" id="contact-form-status" hidden aria-live="polite"></div>
 
                                     <form action="{% url 'home' %}" method="post" class="contact-form" data-async-form="true">
@@ -451,7 +480,7 @@
 
                                         <div class="form-row">
                                             <label for="name">Ім’я</label>
-                                            <input type="text" id="name" name="name" placeholder="Як до тебе звертатись?" autocomplete="name" required>
+                                            <input type="text" id="name" name="name" placeholder="Як до вас звертатися?" autocomplete="name" required>
                                         </div>
 
                                         <div class="form-row">
@@ -466,7 +495,7 @@
 
                                         <div class="form-row">
                                             <label for="message">Опиши задачу</label>
-                                            <textarea id="message" name="message" rows="6" minlength="10" placeholder="Наприклад: потрібне асфальтування стоянки 300 м² або оренда котка на 2 дні" required></textarea>
+                                            <textarea id="message" name="message" rows="6" minlength="10" placeholder="Наприклад: потрібне асфальтування стоянки площею 300 м² або оренда котка на 2 дні" required></textarea>
                                         </div>
 
                                         <button type="submit" class="btn btn-primary btn-full">Надіслати заявку</button>
@@ -516,5 +545,24 @@
                             </div>
                         </div>
                     </section>
+                    
+                    
+<div class="image-modal" id="equipmentImageModal" aria-hidden="true">
+    <div class="image-modal__backdrop" data-close-modal></div>
+
+    <div class="image-modal__dialog" role="dialog" aria-modal="true" aria-label="Перегляд зображення техніки">
+        <button type="button" class="image-modal__close" id="equipmentImageClose" aria-label="Закрити">
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="image-modal__glow image-modal__glow--left"></div>
+        <div class="image-modal__glow image-modal__glow--right"></div>
+
+        <div class="image-modal__media-wrap">
+            <img id="equipmentImageModalImg" src="" alt="">
+        </div>
+    </div>
+</div>
 
                     {% endblock %}

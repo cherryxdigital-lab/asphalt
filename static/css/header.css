@@ -103,10 +103,11 @@
 .main-nav ul {
     display: grid;
     grid-template-columns: repeat(4, 0fr);
-    gap: 0px;
+    gap: 7px;
     list-style: none;
     margin: 0;
     padding: 0;
+    justify-items: center;
 }
 
 .main-nav li {
@@ -524,3 +525,6 @@
         margin-top: 58px;
     }
 }
+
+
+

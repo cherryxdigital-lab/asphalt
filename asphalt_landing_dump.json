@@ -1,0 +1,469 @@
+[
+{
+  "model": "landing.equipmentrental",
+  "pk": 32,
+  "fields": {
+    "name": "Каток 5 тонн",
+    "description": "Каток для уплотнения асфальта, вес 5 тонн.",
+    "price": "7000.00",
+    "price_unit": "смена (8 часов)",
+    "min_hours": null,
+    "image": "",
+    "image_url": null
+  }
+},
+{
+  "model": "landing.equipmentrental",
+  "pk": 33,
+  "fields": {
+    "name": "Каток 3-5 тонн",
+    "description": "Каток для уплотнения асфальта, вес 3-5 тонн.",
+    "price": "7000.00",
+    "price_unit": "смена (8 часов)",
+    "min_hours": null,
+    "image": "",
+    "image_url": null
+  }
+},
+{
+  "model": "landing.equipmentrental",
+  "pk": 34,
+  "fields": {
+    "name": "Асфальтоукладчик",
+    "description": "Машина для укладки асфальта.",
+    "price": "25000.00",
+    "price_unit": "смена (8 часов)",
+    "min_hours": null,
+    "image": "",
+    "image_url": null
+  }
+},
+{
+  "model": "landing.equipmentrental",
+  "pk": 35,
+  "fields": {
+    "name": "Экскаватор",
+    "description": "Экскаватор для земляных работ.",
+    "price": "1300.00",
+    "price_unit": "час",
+    "min_hours": 4,
+    "image": "",
+    "image_url": null
+  }
+},
+{
+  "model": "landing.equipmentrental",
+  "pk": 36,
+  "fields": {
+    "name": "Мини-экскаватор",
+    "description": "Мини-экскаватор для точных работ.",
+    "price": "1200.00",
+    "price_unit": "час",
+    "min_hours": 4,
+    "image": "",
+    "image_url": null
+  }
+},
+{
+  "model": "landing.equipmentrental",
+  "pk": 37,
+  "fields": {
+    "name": "Каток 10 тонн",
+    "description": "Каток для уплотнения асфальта, вес 10 тонн.",
+    "price": "10000.00",
+    "price_unit": "смена (8 часов)",
+    "min_hours": null,
+    "image": "",
+    "image_url": null
+  }
+},
+{
+  "model": "landing.equipmentrental",
+  "pk": 38,
+  "fields": {
+    "name": "Бабкет с гидромолотом",
+    "description": "Бабкет с гидромолотом для демонтажа.",
+    "price": "1300.00",
+    "price_unit": "час",
+    "min_hours": 4,
+    "image": "",
+    "image_url": null
+  }
+},
+{
+  "model": "landing.asphalttype",
+  "pk": 9,
+  "fields": {
+    "name": "Асфальт стандартный",
+    "description": "Стандартный асфальт для дорог. Цена от 600 до 1500 грн/кв.м.",
+    "price_per_sqm": "600.00",
+    "image": "",
+    "image_url": null
+  }
+},
+{
+  "model": "landing.asphalttype",
+  "pk": 10,
+  "fields": {
+    "name": "Асфальтная крошка",
+    "description": "Асфальтная крошка для ямочного ремонта. 350 грн/кв.м.",
+    "price_per_sqm": "350.00",
+    "image": "",
+    "image_url": null
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 1,
+  "fields": {
+    "name": "Маркетинг",
+    "phone": "0977771247",
+    "email": "tesr@gmail.com",
+    "message": "аипипаап",
+    "created_at": "2026-03-24T13:32:02.832Z",
+    "processed": true
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 2,
+  "fields": {
+    "name": "Маркетинг",
+    "phone": "0977771247",
+    "email": "dredrdf@gmail.com",
+    "message": "vdvddvrvdvdvd",
+    "created_at": "2026-03-24T13:40:35.338Z",
+    "processed": true
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 3,
+  "fields": {
+    "name": "Маркетинг",
+    "phone": "0977771247",
+    "email": "test@gmail.com",
+    "message": "vfvvxvvxvfx dxvxxvd xdvxdvd dxvvvd dvxvxdvd dvdvxd. dvx vdxvd",
+    "created_at": "2026-03-24T13:56:54.307Z",
+    "processed": true
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 4,
+  "fields": {
+    "name": "Маркетинг",
+    "phone": "0977771247",
+    "email": "otdel.marketing.jmc@gmail.com",
+    "message": "dccdvdx",
+    "created_at": "2026-03-24T13:57:48.454Z",
+    "processed": true
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 5,
+  "fields": {
+    "name": "Маркетинг",
+    "phone": "0977771247",
+    "email": "otdel.marketing.jmc@gmail.com",
+    "message": "rdggrdrgdgrd",
+    "created_at": "2026-03-24T13:57:56.908Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 6,
+  "fields": {
+    "name": "Маркетинг",
+    "phone": "4434343434343",
+    "email": "otdel.marketing.jmc@gmail.com",
+    "message": "drggrgrdgrdrgd",
+    "created_at": "2026-03-24T13:58:03.066Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 7,
+  "fields": {
+    "name": "Маркетинг",
+    "phone": "4354543345435345",
+    "email": "otdel.marketing.jmc@gmail.com",
+    "message": "dgrrgrdgddrggdr",
+    "created_at": "2026-03-24T13:58:09.519Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 8,
+  "fields": {
+    "name": "rdgdrgdrgrd",
+    "phone": "0977771247",
+    "email": "otdel.marketing.jmc@gmail.com",
+    "message": "drgdrgdrgdrgrd",
+    "created_at": "2026-03-24T13:58:19.471Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 9,
+  "fields": {
+    "name": "vdrvrdvdrrv",
+    "phone": "4354354345354",
+    "email": "dredrdf@gmail.com",
+    "message": "gdrdgrgdrdgrgdrrdgrdggrdgr",
+    "created_at": "2026-03-24T13:58:31.273Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 10,
+  "fields": {
+    "name": "Маркетинг",
+    "phone": "4345435534435",
+    "email": "otdel.marketing.jmc@gmail.com",
+    "message": "dgrdrgrdrdggrdgrd",
+    "created_at": "2026-03-24T13:58:39.151Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 11,
+  "fields": {
+    "name": "Маркетинг",
+    "phone": "3454354534534554",
+    "email": "otdel.marketing.jmc@gmail.com",
+    "message": "fddgrdrggrdgrgdrrdggrd",
+    "created_at": "2026-03-24T13:58:46.478Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 12,
+  "fields": {
+    "name": "Маркетинг",
+    "phone": "435445354345534",
+    "email": "otdel.marketing.jmc@gmail.com",
+    "message": "gdrgdrrdggrdgrrdg",
+    "created_at": "2026-03-24T13:58:53.178Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 13,
+  "fields": {
+    "name": "rgdgrdgrdgrdgr",
+    "phone": "435453453435453",
+    "email": "otdel.marketing.jmc@gmail.com",
+    "message": "dggdrgdrgrd",
+    "created_at": "2026-03-24T13:59:04.331Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 14,
+  "fields": {
+    "name": "dgrrgdgrdrg",
+    "phone": "rdggdrdggrd",
+    "email": "grdgrdgrdrgd@gmail.com",
+    "message": "drgdrggrdgrdgdr",
+    "created_at": "2026-03-24T13:59:21.511Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 15,
+  "fields": {
+    "name": "gdrrdggrdgrd",
+    "phone": "0977771247",
+    "email": "fsrgdrdgrgdr@gmail.com",
+    "message": "rdggrdgdrgrdgrd",
+    "created_at": "2026-03-24T13:59:33.551Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 16,
+  "fields": {
+    "name": "Маркетинг",
+    "phone": "4444",
+    "email": "otdel.marketing.jmc@gmail.com",
+    "message": "4444",
+    "created_at": "2026-03-24T13:59:40.567Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 17,
+  "fields": {
+    "name": "Маркетинг",
+    "phone": "444444",
+    "email": "otdel.marketing.jmc@gmail.com",
+    "message": "444g4rgr",
+    "created_at": "2026-03-24T13:59:46.018Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 18,
+  "fields": {
+    "name": "Маркетинг",
+    "phone": "44535454345345",
+    "email": "otdel.marketing.jmc@gmail.com",
+    "message": "regrdrrdg",
+    "created_at": "2026-03-24T13:59:52.080Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 19,
+  "fields": {
+    "name": "Маркетинг",
+    "phone": "345345543435543",
+    "email": "otdel.marketing.jmc@gmail.com",
+    "message": "grgrdgrdgrgrdgrd",
+    "created_at": "2026-03-24T13:59:57.495Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 20,
+  "fields": {
+    "name": "Маркетинг",
+    "phone": "43543534543543",
+    "email": "otdel.marketing.jmc@gmail.com",
+    "message": "grdgdrgrdgrdgr",
+    "created_at": "2026-03-24T14:00:03.223Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 21,
+  "fields": {
+    "name": "drgrdgrdgrd",
+    "phone": "445435543",
+    "email": "drggdrgrdgrdgr@gmail.com",
+    "message": "rdggdrgdrggr",
+    "created_at": "2026-03-24T14:00:17.575Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 22,
+  "fields": {
+    "name": "Маркетинг",
+    "phone": "453435534345453",
+    "email": "otdel.marketing.jmc@gmail.com",
+    "message": "fddgrgrdgdrgrdgrdgrd",
+    "created_at": "2026-03-24T14:00:23.870Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 23,
+  "fields": {
+    "name": "Маркетинг",
+    "phone": "43543543345543",
+    "email": "otdel.marketing.jmc@gmail.com",
+    "message": "gdrgdrdgre4355trg5yh5gb",
+    "created_at": "2026-03-24T14:00:31.057Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.contactrequest",
+  "pk": 24,
+  "fields": {
+    "name": "Maxim",
+    "phone": "+380 (88) 888-88-88",
+    "email": null,
+    "message": "ыавысуауыасуы",
+    "created_at": "2026-03-24T14:10:09.575Z",
+    "processed": false
+  }
+},
+{
+  "model": "landing.blogpost",
+  "pk": 2,
+  "fields": {
+    "title": "Технології укладання асфальту: сучасні методи",
+    "slug": "tekhnolohii-ukladannia-asfaltu-suchasni-metody",
+    "short_description": "Дізнайтеся про найновітніші технології укладання асфальтового покриття, які забезпечують довговічність та якість.",
+    "full_description": "<p>Сучасні технології укладання асфальту значно відрізняються від традиційних методів. Використання спеціального обладнання та матеріалів дозволяє досягти високої якості покриття.</p>\n\n<p><strong>Основні етапи укладання:</strong></p>\n<ul>\n<li>Підготовка основи</li>\n<li>Укладання нижнього шару</li>\n<li>Укладання верхнього шару</li>\n<li>Уплотнення катками</li>\n</ul>\n\n<p>Правильна технологія гарантує довговічність асфальтового покриття до 15 років.</p>",
+    "image": "",
+    "image_url": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "created_at": "2026-03-22T01:21:10.475Z"
+  }
+},
+{
+  "model": "landing.blogpost",
+  "pk": 3,
+  "fields": {
+    "title": "Чому важливо вибирати якісний асфальт",
+    "slug": "chomu-vazhlyvo-vybyraty-yakisnyy-asfalt",
+    "short_description": "Якісний асфальт - запорука безпеки та комфорту. Розповідаємо про критерії вибору матеріалів.",
+    "full_description": "<p>Вибір якісного асфальту - це не тільки економія коштів, але й забезпечення безпеки дорожнього руху та комфорту користувачів.</p>\n\n<p><strong>Критерії якості асфальту:</strong></p>\n<ul>\n<li>Стійкість до навантажень</li>\n<li>Водостійкість</li>\n<li>Зносостійкість</li>\n<li>Шорсткість поверхні</li>\n</ul>\n\n<p>Наша компанія використовує тільки сертифіковані матеріали та сучасне обладнання.</p>",
+    "image": "",
+    "image_url": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "created_at": "2026-03-22T01:21:10.478Z"
+  }
+},
+{
+  "model": "landing.blogpost",
+  "pk": 4,
+  "fields": {
+    "title": "Ремонт асфальтового покриття: коли і як",
+    "slug": "remont-asfaltovoho-pokryttia-koly-i-yak",
+    "short_description": "Своєчасний ремонт асфальту дозволяє уникнути великих витрат та забезпечити безпеку руху.",
+    "full_description": "<p>Регулярний огляд та своєчасний ремонт асфальтового покриття - ключ до збереження його функціональності.</p>\n\n<p><strong>Ознаки необхідності ремонту:</strong></p>\n<ul>\n<li>Виникнення тріщин</li>\n<li>Поява вибоїн</li>\n<li>Зниження шорсткості</li>\n<li>Наявність калюж після дощу</li>\n</ul>\n\n<p>Наші спеціалісти проведуть діагностику та запропонують оптимальні рішення.</p>",
+    "image": "",
+    "image_url": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "created_at": "2026-03-22T01:21:10.479Z"
+  }
+},
+{
+  "model": "landing.companyinfo",
+  "pk": 1,
+  "fields": {
+    "name": "Winkast",
+    "address": "Днепр 7",
+    "phone_primary": "+380 097 777 7777",
+    "phone_secondary": "+380 097 777 7777",
+    "working_hours": "Пн-Пт 08:00-18:00; Сб 09:00-13:00",
+    "show_on_site": true,
+    "updated_at": "2026-03-24T16:12:36.880Z"
+  }
+},
+{
+  "model": "landing.workprocessstep",
+  "pk": 1,
+  "fields": {
+    "title": "Тест",
+    "short_description": "тест",
+    "full_description": "ттаааттататататат",
+    "image": "",
+    "image_url": null,
+    "image_alt": "test",
+    "order": 0,
+    "featured": false
+  }
+}
+]
