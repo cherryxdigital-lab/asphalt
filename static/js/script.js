@@ -590,12 +590,41 @@ document.addEventListener('DOMContentLoaded', function() {
             const state = selectedEquipmentState.get(configId);
 
             if (field === 'duration') {
-                state.duration = Math.max(parseFloat(target.value) || 0, Math.max(1, minHours));
-                target.value = state.duration;
+                if (target.value === '') {
+                    state.duration = '';
+                } else {
+                    state.duration = Math.max(parseFloat(target.value) || 0, 0);
+                }
             }
             if (field === 'quantity') {
-                state.quantity = Math.max(parseInt(target.value, 10) || 1, 1);
-                target.value = state.quantity;
+                if (target.value === '') {
+                    state.quantity = '';
+                } else {
+                    state.quantity = Math.max(parseInt(target.value, 10) || 0, 0);
+                }
+            }
+
+            selectedEquipmentState.set(configId, state);
+            calculate();
+        });
+
+        calcSelectedEquipment.addEventListener('focusout', function(e) {
+            const target = e.target;
+            if (!(target instanceof HTMLInputElement)) return;
+
+            const configId = target.getAttribute('data-config-id');
+            const field = target.getAttribute('data-config-field');
+            if (!configId || !field || !selectedEquipmentState.has(configId)) return;
+
+            const option = equipmentOptions.find((item) => item.getAttribute('data-id') === configId);
+            const minHours = readOptionData(option, 'min-hours') || 0;
+            const state = selectedEquipmentState.get(configId);
+
+            if (field === 'duration') {
+                state.duration = Math.max(parseFloat(target.value) || 0, Math.max(1, minHours));
+            }
+            if (field === 'quantity') {
+                state.quantity = Math.max(parseInt(target.value, 10) || 0, 1);
             }
 
             selectedEquipmentState.set(configId, state);
