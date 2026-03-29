@@ -1,7 +1,9 @@
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 import re
+from django.urls import reverse
+from django.utils import timezone
 from .models import (
     EquipmentRental,
     AsphaltType,
@@ -18,6 +20,21 @@ from django.db.utils import OperationalError
 
 NAME_RE = re.compile(r"^[A-Za-zА-Яа-яІіЇїЄєҐґ'\-\s]+$")
 PHONE_DIGITS_RE = re.compile(r"\D")
+SEO_CITY_UK = "Дніпро"
+SEO_CITY_RU = "Днепр"
+SEO_BRAND = "Winkast"
+SEO_BRAND_ALT = "ROADTECH"
+
+
+def get_company_info():
+    try:
+        return CompanyInfo.objects.filter(show_on_site=True).order_by('-updated_at').first()
+    except OperationalError:
+        return None
+
+
+def build_absolute_url(request, path: str) -> str:
+    return request.build_absolute_uri(path)
 
 
 def format_ukrainian_phone(phone: str) -> str:
@@ -94,10 +111,7 @@ def home(request):
     process_steps = WorkProcessStep.objects.all()
     evacuator_section = EvacuatorSection.objects.filter(show_on_site=True).order_by('-updated_at').first()
     evacuator_offers = EvacuatorOffer.objects.filter(show_on_site=True)
-    try:
-        company = CompanyInfo.objects.filter(show_on_site=True).order_by('-updated_at').first()
-    except OperationalError:
-        company = None
+    company = get_company_info()
     context = {
         'equipment': equipment,
         'asphalt_types': asphalt_types,
@@ -111,10 +125,7 @@ def home(request):
 
 def blog_list(request):
     blog_posts = BlogPost.objects.all()
-    try:
-        company = CompanyInfo.objects.filter(show_on_site=True).order_by('-updated_at').first()
-    except OperationalError:
-        company = None
+    company = get_company_info()
     context = {
         'blog_posts': blog_posts,
         'company': company,
@@ -123,12 +134,73 @@ def blog_list(request):
 
 def blog_detail(request, slug):
     post = get_object_or_404(BlogPost, slug=slug)
-    try:
-        company = CompanyInfo.objects.filter(show_on_site=True).order_by('-updated_at').first()
-    except OperationalError:
-        company = None
+    company = get_company_info()
     context = {
         'post': post,
         'company': company,
     }
     return render(request, 'landing/blog_detail.html', context)
+
+
+def robots_txt(request):
+    sitemap_url = build_absolute_url(request, reverse('sitemap_xml'))
+    lines = [
+        "User-agent: *",
+        "Allow: /",
+        "Disallow: /admin/",
+        "",
+        f"Sitemap: {sitemap_url}",
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain; charset=utf-8")
+
+
+def sitemap_xml(request):
+    company = get_company_info()
+    home_url = build_absolute_url(request, reverse('home'))
+    blog_list_url = build_absolute_url(request, reverse('blog_list'))
+    posts = BlogPost.objects.all()
+    today = timezone.now().date().isoformat()
+
+    urls = [
+        {
+            "loc": home_url,
+            "lastmod": company.updated_at.date().isoformat() if company else today,
+            "changefreq": "weekly",
+            "priority": "1.0",
+        },
+        {
+            "loc": blog_list_url,
+            "lastmod": posts.first().created_at.date().isoformat() if posts.exists() else today,
+            "changefreq": "weekly",
+            "priority": "0.8",
+        },
+    ]
+
+    for post in posts:
+        urls.append(
+            {
+                "loc": build_absolute_url(request, post.get_absolute_url()),
+                "lastmod": post.created_at.date().isoformat(),
+                "changefreq": "monthly",
+                "priority": "0.7",
+            }
+        )
+
+    xml_lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ]
+    for item in urls:
+        xml_lines.extend(
+            [
+                "  <url>",
+                f"    <loc>{item['loc']}</loc>",
+                f"    <lastmod>{item['lastmod']}</lastmod>",
+                f"    <changefreq>{item['changefreq']}</changefreq>",
+                f"    <priority>{item['priority']}</priority>",
+                "  </url>",
+            ]
+        )
+    xml_lines.append("</urlset>")
+
+    return HttpResponse("\n".join(xml_lines), content_type="application/xml; charset=utf-8")

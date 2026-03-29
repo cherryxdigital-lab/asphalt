@@ -1,11 +1,69 @@
 {% extends 'landing/base.html' %}
 {% load static %}
 
-{% block title %}{% if company and company.name %}{{ company.name }} — {% endif %}Оренда спецтехніки та укладання асфальту{% endblock %}
-{% block meta_description %}{% if company and company.name %}{{ company.name }}{% else %}ROADTECH{% endif %} — асфальтування, асфальтирование, укладання асфальту, аренда техники для асфальтирования, оренда спецтехніки, ямковий ремонт і дорожні роботи під ключ по місту та області.{% endblock %}
-{% block meta_keywords %}асфальтування, асфальтирование, укладання асфальту, укладка асфальта, оренда спецтехніки, аренда спецтехники, оренда техніки для асфальтування, аренда техники для асфальтирования, оренда катка, аренда катка, дорожні роботи, дорожные работы, ямковий ремонт, ямочный ремонт, асфальтні роботи під ключ, асфальтные работы под ключ{% endblock %}
-{% block og_title %}{% if company and company.name %}{{ company.name }} — {% endif %}Асфальтування та оренда спецтехніки{% endblock %}
-{% block og_description %}Професійне асфальтування, асфальтирование, оренда спецтехніки, укладання асфальту, підготовка основи та ремонт покриття для приватних і комерційних об’єктів.{% endblock %}
+{% block title %}{% if company and company.name %}{{ company.name }} — {% endif %}Асфальтування в Дніпрі, оренда спецтехніки та дорожні роботи{% endblock %}
+{% block meta_description %}{% if company and company.name %}{{ company.name }}{% else %}Winkast / ROADTECH{% endif %} — асфальтування в Дніпрі, асфальтирование в Днепре, укладання асфальту, оренда спецтехніки та аренда техники для асфальтирования. Ямковий ремонт, котки, асфальтоукладчики, підготовка основи та дорожні роботи під ключ по Дніпру та області.{% endblock %}
+{% block meta_keywords %}асфальтування дніпро, асфальтирование днепр, укладання асфальту дніпро, укладка асфальта днепр, оренда спецтехніки дніпро, аренда спецтехники днепр, оренда техніки для асфальтування дніпро, аренда техники для асфальтирования днепр, дорожні роботи дніпро, дорожные работы днепр, ямковий ремонт дніпро, ямочный ремонт днепр, каток в оренду дніпро, каток в аренду днепр, winkast, винкаст, roadtech{% endblock %}
+{% block canonical_url %}{{ request.scheme }}://{{ request.get_host }}{% url 'home' %}{% endblock %}
+{% block og_title %}{% if company and company.name %}{{ company.name }} — {% endif %}Асфальтування в Дніпрі та оренда спецтехніки{% endblock %}
+{% block og_description %}Професійне асфальтування в Дніпрі, асфальтирование в Днепре, оренда спецтехніки, укладання асфальту, підготовка основи та ремонт покриття для приватних і комерційних об’єктів.{% endblock %}
+{% block twitter_title %}{% if company and company.name %}{{ company.name }} — {% endif %}Асфальтування в Дніпрі та оренда спецтехніки{% endblock %}
+{% block twitter_description %}Асфальтування в Дніпрі, оренда спецтехніки, ямковий ремонт та дорожні роботи під ключ для приватних і комерційних об’єктів.{% endblock %}
+{% block extra_head %}
+{{ block.super }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "{% if company and company.name %}{{ company.name|escapejs }}{% else %}Winkast / ROADTECH{% endif %} — асфальтування в Дніпрі",
+  "url": "{{ request.build_absolute_uri|escapejs }}",
+  "description": "Асфальтування в Дніпрі, оренда спецтехніки, ямковий ремонт та дорожні роботи під ключ.",
+  "about": [
+    "асфальтування у Дніпрі",
+    "асфальтирование в Днепре",
+    "оренда спецтехніки у Дніпрі",
+    "аренда спецтехники в Днепре"
+  ],
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Головна",
+        "item": "{{ request.scheme }}://{{ request.get_host }}{% url 'home' %}"
+      }
+    ]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Асфальтування та оренда спецтехніки",
+  "name": "Асфальтування в Дніпрі та оренда спецтехніки",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "{% if company and company.name %}{{ company.name|escapejs }}{% else %}Winkast / ROADTECH{% endif %}"
+  },
+  "areaServed": [
+    "Дніпро",
+    "Дніпропетровська область"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Основні послуги",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Асфальтування" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Оренда спецтехніки" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Ямковий ремонт" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Підготовка та ущільнення основи" } }
+    ]
+  }
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <section class="hero" id="hero">

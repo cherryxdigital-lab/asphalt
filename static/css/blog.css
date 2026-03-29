@@ -78,6 +78,7 @@ body{
     grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
     gap: 24px;
     align-items: stretch;
+    margin-top: 37px !important;
 }
 
 .rt-blog-hero__content,
@@ -434,6 +435,7 @@ body{
     background:
         linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.96));
     box-shadow: var(--rt-shadow-sm);
+    margin-top: 37px;
 }
 
 .rt-back-link {

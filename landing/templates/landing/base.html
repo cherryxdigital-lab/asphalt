@@ -4,26 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Асфальтова компанія — ROADTECH{% endblock %}</title>
-    <meta name="description" content="{% block meta_description %}Асфальтування, асфальтирование, оренда спецтехніки, аренда техники для асфальтирования, укладання асфальту, ямковий ремонт і дорожні роботи під ключ для приватних та комерційних об’єктів.{% endblock %}">
-    <meta name="keywords" content="{% block meta_keywords %}асфальтування, асфальтирование, укладання асфальту, укладка асфальта, оренда спецтехніки, аренда спецтехники, оренда техніки для асфальтування, аренда техники для асфальтирования, дорожні роботи, дорожные работы, ямковий ремонт, ямочный ремонт, каток в аренду, аренда катка, асфальтні роботи, асфальтные работы{% endblock %}">
+    <title>{% block title %}Асфальтування в Дніпрі та оренда спецтехніки — Winkast / ROADTECH{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Winkast / ROADTECH — асфальтування в Дніпрі, асфальтирование в Днепре, оренда спецтехніки та аренда спецтехники для асфальтування. Працюємо по Дніпру та області: укладання асфальту, ямковий ремонт, підготовка основи, котки, асфальтоукладчики та дорожні роботи під ключ.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}асфальтування дніпро, асфальтирование днепр, укладання асфальту дніпро, укладка асфальта днепр, оренда спецтехніки дніпро, аренда спецтехники днепр, оренда техніки для асфальтування дніпро, аренда техники для асфальтирования днепр, дорожні роботи дніпро, дорожные работы днепр, ямковий ремонт дніпро, ямочный ремонт днепр, каток в аренду днепр, оренда катка дніпро, winkast, винкаст, roadtech{% endblock %}">
     <meta name="robots" content="{% block meta_robots %}index, follow, max-image-preview:large{% endblock %}">
-    <meta name="author" content="ROADTECH">
+    <meta name="author" content="Winkast / ROADTECH">
     <meta name="language" content="uk, ru">
+    <meta name="geo.region" content="UA-12">
+    <meta name="geo.placename" content="Дніпро">
+    <meta name="ICBM" content="48.4647, 35.0462">
     <link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
     <link rel="alternate" hreflang="uk-UA" href="{{ request.build_absolute_uri }}">
     <link rel="alternate" hreflang="ru-UA" href="{{ request.build_absolute_uri }}">
     <link rel="alternate" hreflang="x-default" href="{{ request.build_absolute_uri }}">
-    <meta property="og:site_name" content="{% if company and company.name %}{{ company.name }}{% else %}ROADTECH{% endif %}">
+    <meta property="og:site_name" content="{% if company and company.name %}{{ company.name }}{% else %}Winkast / ROADTECH{% endif %}">
     <meta property="og:locale" content="uk_UA">
+    <meta property="og:locale:alternate" content="ru_RU">
     <meta property="og:type" content="{% block og_type %}website{% endblock %}">
-    <meta property="og:title" content="{% block og_title %}{% if company and company.name %}{{ company.name }} — {% endif %}Оренда спецтехніки та асфальтування{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Професійне асфальтування, асфальтирование, оренда техніки та дорожні роботи під ключ для дворів, парковок, під’їздів, складів і комерційних територій.{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{% if company and company.name %}{{ company.name }} — {% endif %}Асфальтування в Дніпрі та оренда спецтехніки{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Професійне асфальтування в Дніпрі, асфальтирование в Днепре, оренда техніки, ямковий ремонт і дорожні роботи під ключ для дворів, стоянок, під’їздів, складів і комерційних територій.{% endblock %}">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/social-preview-square.webp' %}{% endblock %}">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{% block twitter_title %}{% if company and company.name %}{{ company.name }} — {% endif %}Оренда спецтехніки та асфальтування{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}Асфальтування, оренда спецтехніки, підготовка основи та дорожні роботи під ключ для приватних і комерційних об’єктів.{% endblock %}">
+    <meta name="twitter:title" content="{% block twitter_title %}{% if company and company.name %}{{ company.name }} — {% endif %}Асфальтування в Дніпрі та оренда спецтехніки{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Асфальтування в Дніпрі, оренда спецтехніки, підготовка основи та дорожні роботи під ключ для приватних і комерційних об’єктів.{% endblock %}">
     <meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/social-preview-square.webp' %}{% endblock %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
@@ -41,18 +45,48 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "{% if company and company.name %}{{ company.name|escapejs }}{% else %}ROADTECH{% endif %}",
+      "@type": "LocalBusiness",
+      "name": "{% if company and company.name %}{{ company.name|escapejs }}{% else %}Winkast / ROADTECH{% endif %}",
+      "alternateName": ["Winkast", "ROADTECH", "Винкаст"],
       "url": "{{ request.build_absolute_uri|escapejs }}",
       "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.webp' %}",
-      "description": "Асфальтування, асфальтирование, оренда спецтехніки та дорожні роботи під ключ.",
+      "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/social-preview-square.webp' %}",
+      "description": "Асфальтування в Дніпрі, асфальтирование в Днепре, оренда спецтехніки та дорожні роботи під ключ.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Дніпро",
+        "addressRegion": "Дніпропетровська область",
+        "addressCountry": "UA"
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Дніпро"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Дніпропетровська область"
+        }
+      ],
+      "sameAs": [
+        "https://www.olx.ua/d/obyavlenie/orenda-poslugi-asfaltoukladchika-IDUSAKo.html",
+        "https://vt.tiktok.com/ZSuoUEPQU"
+      ],
       "contactPoint": [{
         "@type": "ContactPoint",
         "telephone": "{% if company and company.phone_primary %}{{ company.phone_primary|escapejs }}{% else %}+38 (000) 000 00 00{% endif %}",
         "contactType": "customer service",
         "areaServed": "UA",
         "availableLanguage": ["uk", "ru"]
-      }]
+      }],
+      "knowsAbout": [
+        "асфальтування у Дніпрі",
+        "асфальтирование в Днепре",
+        "оренда спецтехніки у Дніпрі",
+        "аренда спецтехники в Днепре",
+        "ямковий ремонт",
+        "дорожні роботи"
+      ]
     }
     </script>
     {% endblock %}
@@ -230,8 +264,29 @@
                                 <strong>Графік</strong>
                                 <span>{% if company and company.working_hours %}{{ company.working_hours }}{% else %}Пн–Сб: 08:00–19:00{% endif %}</span>
                             </div>
+                            <div class="footer-contact-item footer-contact-item--media">
+                                <div class="footer-media-cta-row">
+                                    <div class="footer-media-block">
+                                        <strong>Медіа</strong>
+                                        <div class="footer-media-links">
+                                            <a href="https://www.olx.ua/d/obyavlenie/orenda-poslugi-asfaltoukladchika-IDUSAKo.html" class="footer-media-link" target="_blank" rel="noopener noreferrer" aria-label="OLX">
+                                                <span class="footer-media-link__icon">
+                                                    <img src="{% static 'images/Group-10-_1_.webp' %}" alt="OLX">
+                                                </span>
+                                                <span class="footer-media-link__label">OLX</span>
+                                            </a>
+                                            <a href="https://vt.tiktok.com/ZSuoUEPQU" class="footer-media-link" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                                                <span class="footer-media-link__icon">
+                                                    <img src="{% static 'images/Vector-_5_.webp' %}" alt="TikTok">
+                                                </span>
+                                                <span class="footer-media-link__label">TikTok</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <a href="{% url 'home' %}#contacts" class="footer-cta footer-cta--inline">Отримати прорахунок</a>
+                                </div>
+                            </div>
                         </div>
-                        <a href="{% url 'home' %}#contacts" class="footer-cta">Отримати прорахунок</a>
                     </div>
                 </div>
             </div>

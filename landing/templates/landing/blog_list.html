@@ -1,20 +1,21 @@
 {% extends 'landing/base.html' %}
 {% load static %}
 
-{% block title %}Блог — ROADTECH{% endblock %}
-{% block meta_description %}Блог ROADTECH про асфальтування, асфальтирование, оренду техніки для асфальтування, підготовку основи, дорожні роботи та практичні поради для замовників.{% endblock %}
-{% block meta_keywords %}блог про асфальтування, блог про асфальтирование, оренда техніки для асфальтування, аренда техники для асфальтирования, дорожні роботи, асфальтні роботи, спецтехніка, каток в оренду{% endblock %}
+{% block title %}Блог про асфальтування в Дніпрі та оренду спецтехніки — Winkast / ROADTECH{% endblock %}
+{% block meta_description %}Блог Winkast / ROADTECH про асфальтування в Дніпрі, асфальтирование в Днепре, оренду техніки для асфальтування, підготовку основи, дорожні роботи та практичні поради для замовників.{% endblock %}
+{% block meta_keywords %}блог про асфальтування дніпро, блог про асфальтирование днепр, оренда техніки для асфальтування дніпро, аренда техники для асфальтирования днепр, дорожні роботи дніпро, асфальтні роботи дніпро, спецтехніка дніпро, winkast, винкаст, roadtech{% endblock %}
 {% block og_type %}website{% endblock %}
-{% block og_title %}Блог ROADTECH — асфальтування та оренда техніки{% endblock %}
-{% block og_description %}Практичні матеріали про асфальтування, оренду техніки, ремонт покриття, підготовку основи та виконання дорожніх робіт.{% endblock %}
+{% block canonical_url %}{{ request.scheme }}://{{ request.get_host }}{% url 'blog_list' %}{% endblock %}
+{% block og_title %}Блог Winkast / ROADTECH — асфальтування в Дніпрі та оренда техніки{% endblock %}
+{% block og_description %}Практичні матеріали про асфальтування в Дніпрі, оренду техніки, ремонт покриття, підготовку основи та виконання дорожніх робіт.{% endblock %}
 {% block extra_head %}
 {{ block.super }}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": "Блог ROADTECH",
-  "description": "Матеріали про асфальтування, асфальтирование та оренду техніки для дорожніх робіт.",
+  "name": "Блог Winkast / ROADTECH",
+  "description": "Матеріали про асфальтування в Дніпрі, асфальтирование в Днепре та оренду техніки для дорожніх робіт.",
   "url": "{{ request.build_absolute_uri|escapejs }}"
 }
 </script>

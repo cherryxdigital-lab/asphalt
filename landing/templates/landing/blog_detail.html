@@ -1,12 +1,12 @@
 {% extends 'landing/base.html' %}
 {% load static %}
 
-{% block title %}{{ post.title }} — ROADTECH{% endblock %}
-{% block meta_description %}{{ post.short_description|default:"Стаття ROADTECH про асфальтування, асфальтирование, оренду техніки та дорожні роботи."|striptags }}{% endblock %}
-{% block meta_keywords %}{{ post.title }}, асфальтування, асфальтирование, оренда техніки для асфальтування, аренда техники для асфальтирования, дорожні роботи, спецтехніка, асфальтні роботи{% endblock %}
+{% block title %}{{ post.title }} — Winkast / ROADTECH{% endblock %}
+{% block meta_description %}{{ post.short_description|default:"Стаття Winkast / ROADTECH про асфальтування в Дніпрі, асфальтирование в Днепре, оренду техніки та дорожні роботи."|striptags }}{% endblock %}
+{% block meta_keywords %}{{ post.title }}, асфальтування дніпро, асфальтирование днепр, оренда техніки дніпро, аренда техники днепр, дорожні роботи дніпро, спецтехніка дніпро, winkast, roadtech{% endblock %}
 {% block og_type %}article{% endblock %}
-{% block og_title %}{{ post.title }} — ROADTECH{% endblock %}
-{% block og_description %}{{ post.short_description|default:"Експертний матеріал ROADTECH про асфальтування, асфальтирование, дорожні роботи та оренду техніки."|striptags }}{% endblock %}
+{% block og_title %}{{ post.title }} — Winkast / ROADTECH{% endblock %}
+{% block og_description %}{{ post.short_description|default:"Експертний матеріал Winkast / ROADTECH про асфальтування в Дніпрі, асфальтирование в Днепре, дорожні роботи та оренду техніки."|striptags }}{% endblock %}
 {% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}
 {% block og_image %}{% if post.image %}{{ request.scheme }}://{{ request.get_host }}{{ post.image.url }}{% elif post.image_url %}{{ post.image_url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.webp' %}{% endif %}{% endblock %}
 {% block twitter_image %}{% if post.image %}{{ request.scheme }}://{{ request.get_host }}{{ post.image.url }}{% elif post.image_url %}{{ post.image_url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.webp' %}{% endif %}{% endblock %}
@@ -17,16 +17,16 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "{{ post.title|escapejs }}",
-  "description": "{{ post.short_description|default:'Стаття ROADTECH про асфальтування, асфальтирование та оренду техніки.'|striptags|escapejs }}",
+  "description": "{{ post.short_description|default:'Стаття Winkast / ROADTECH про асфальтування в Дніпрі, асфальтирование в Днепре та оренду техніки.'|striptags|escapejs }}",
   "datePublished": "{{ post.created_at|date:'c' }}",
   "dateModified": "{{ post.created_at|date:'c' }}",
   "author": {
     "@type": "Organization",
-    "name": "ROADTECH"
+    "name": "Winkast / ROADTECH"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "ROADTECH",
+    "name": "Winkast / ROADTECH",
     "logo": {
       "@type": "ImageObject",
       "url": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.webp' %}"

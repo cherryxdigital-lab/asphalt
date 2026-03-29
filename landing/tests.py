@@ -4,7 +4,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from PIL import Image
 from io import BytesIO
 
-from .models import BlogPost, EvacuatorOffer, EvacuatorSection
+from .models import BlogPost, CompanyInfo, EvacuatorOffer, EvacuatorSection
 
 
 class HomePageEvacuatorTests(TestCase):
@@ -52,3 +52,33 @@ class WebPConversionTests(TestCase):
         )
 
         self.assertTrue(post.image.name.endswith('.webp'))
+
+
+class SeoEndpointsTests(TestCase):
+    def setUp(self):
+        CompanyInfo.objects.create(
+            name='Winkast',
+            phone_primary='+380 97 339 83 24',
+            address='Дніпро',
+            working_hours='Пн–Сб: 08:00–19:00',
+        )
+        self.post = BlogPost.objects.create(
+            title='Тестова SEO стаття',
+            short_description='Короткий опис для sitemap.',
+            full_description='Повний опис для sitemap.',
+        )
+
+    def test_robots_txt_contains_sitemap(self):
+        response = self.client.get(reverse('robots_txt'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('Sitemap:', response.content.decode())
+
+    def test_sitemap_xml_contains_core_urls(self):
+        response = self.client.get(reverse('sitemap_xml'))
+        content = response.content.decode()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(reverse('home'), content)
+        self.assertIn(reverse('blog_list'), content)
+        self.assertIn(self.post.get_absolute_url(), content)

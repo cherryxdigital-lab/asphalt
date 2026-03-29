@@ -1,72 +1,60 @@
 // JavaScript для лендинга по асфальтированию
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Анимация появления секций с IntersectionObserver
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+    const sections = Array.from(document.querySelectorAll('section'));
+    const anchorLinks = Array.from(document.querySelectorAll('a[href*="#"]'));
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
+    // Анимация появления секций
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (!entry.isIntersecting) return;
                 setTimeout(() => {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
                 }, index * 100);
                 observer.unobserve(entry.target);
-            }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         });
-    }, observerOptions);
 
-    // Наблюдаем за секциями
-    const sections = document.querySelectorAll('section');
-    sections.forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(30px)';
-        section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-        observer.observe(section);
-    });
+        sections.forEach((section) => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+    }
 
-    // Анимация для карточек услуг
-    const services = document.querySelectorAll('.service');
-    services.forEach((service, index) => {
-        service.style.opacity = '0';
-        service.style.transform = 'translateY(20px)';
-        setTimeout(() => {
-            service.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            service.style.opacity = '1';
-            service.style.transform = 'translateY(0)';
-        }, 500 + index * 200);
-    });
+    function scrollToHashTarget(hash) {
+        if (!hash) return false;
+        const targetId = hash.replace(/^#/, '');
+        const targetElement = document.getElementById(targetId);
+        if (!targetElement) return false;
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return true;
+    }
 
-    // Плавная прокрутка к якорям (только для локальных якорей)
-    const navLinks = document.querySelectorAll('nav a');
-    navLinks.forEach(link => {
+    // Плавная прокрутка к внутренним якорям на текущей странице
+    anchorLinks.forEach((link) => {
         link.addEventListener('click', function(e) {
             const href = link.getAttribute('href') || '';
-            // если ссылка — чистый якорь '#id', обрабатываем локально
-            if (href.startsWith('#')) {
-                e.preventDefault();
-                const targetId = href.substring(1);
-                const targetElement = document.getElementById(targetId);
-                if (targetElement) targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                return;
-            }
+            if (!href.includes('#')) return;
 
-            // если ссылка содержит hash и ведет на ту же страницу (pathname === location.pathname), обработаем локально
             try {
                 const url = new URL(href, window.location.origin);
-                if (url.hash && url.pathname === window.location.pathname) {
-                    const targetId = url.hash.substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    if (targetElement) {
-                        e.preventDefault();
-                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
+                const isSamePage = url.pathname === window.location.pathname;
+                if (!isSamePage || !url.hash) return;
+
+                if (scrollToHashTarget(url.hash)) {
+                    e.preventDefault();
                 }
             } catch (err) {
-                // ignore malformed URLs
+                if (href.startsWith('#') && scrollToHashTarget(href)) {
+                    e.preventDefault();
+                }
             }
         });
     });
@@ -94,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (navToggle && navOverlay) {
-        navToggle.addEventListener('click', function(e) {
+        navToggle.addEventListener('click', function() {
             const opened = document.body.classList.contains('nav-open');
             if (opened) closeNav(); else openNav();
         });
@@ -321,11 +309,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!el) return 0;
         const v = el.getAttribute('data-' + key);
         return v === null ? 0 : parseFloat(v || 0);
-    }
-
-    function readOptionAttr(el, attr) {
-        if (!el) return null;
-        return el.getAttribute(attr);
     }
 
     function getSelectedOption(list) {
