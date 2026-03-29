@@ -276,6 +276,7 @@ textarea {
     grid-template-columns: 1.08fr 0.92fr;
     gap: 42px;
     align-items: center;
+    margin-top: 21px;
 }
 
 .eyebrow,
@@ -2274,6 +2275,9 @@ hr{
         flex-direction: column !important;
         min-height: auto !important;
     }
+    
+    .hero-grid{margin-top: 0px;}
+    .asphalt-grid{flex-direction: column;}
 
     .process-grid > .process-step:nth-child(5) .process-step-media,
     .process-grid > .process-step:nth-child(1) .process-step-media,
