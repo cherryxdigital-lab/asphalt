@@ -269,6 +269,7 @@ textarea {
 /* Hero */
 .hero {
     padding: 56px 0 48px;
+    transform: scale(0.9);
 }
 
 .hero-grid {
@@ -365,11 +366,15 @@ textarea {
 
 .hero-visual {
     position: relative;
-    min-height: 520px;
+    min-height: 468px;
+    transform: scale(0.92);
+    transform-origin: center center;
 }
 
 .hero-image-card {
     height: 100%;
+    max-width: 92%;
+    margin: 0 auto;
     border-radius: var(--radius-lg);
     overflow: hidden;
     background: #d1d5db;
@@ -405,13 +410,13 @@ textarea {
 
 .hero-badge--dark {
     top: 26px;
-    left: -12px;
+    left: 8px;
     background: rgba(17, 24, 39, 0.92);
     color: #fff;
 }
 
 .hero-badge--accent {
-    right: -12px;
+    right: 8px;
     bottom: 28px;
     background: rgba(245, 158, 11, 0.96);
     color: #111827;
@@ -1070,7 +1075,7 @@ textarea {
 
 /* Contact */
 .section-contact {
-    padding-top: 140px;
+    padding-top: 85px;
     padding-bottom: 96px;
     scroll-margin-top: 118px;
 }
@@ -1079,6 +1084,9 @@ textarea {
     display: grid;
     grid-template-columns: 0.92fr 1.08fr;
     gap: 24px;
+    transform: scale(0.9);
+    transform-origin: center top;
+    margin: 0 auto;
 }
 
 .contact-panel,
@@ -1721,7 +1729,8 @@ hr{
 
     .section,
     .section-contact {
-        padding: 72px 0;
+        padding: 68px 0;
+        padding-top: 20px;
     }
 
     .section-contact {
@@ -1734,8 +1743,13 @@ hr{
         padding: 0 6px;
     }
 
+    .contact-layout {
+        transform: scale(1);
+    }
+
     .hero {
         padding-top: 30px;
+        transform: scale(1);
     }
 
     .hero-stats,
@@ -1956,7 +1970,7 @@ hr{
     }
 
     .section-contact {
-        padding-top: 76px;
+        padding-top: 35px;
     }
 
     .contact-panel,

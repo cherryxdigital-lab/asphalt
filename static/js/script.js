@@ -3,6 +3,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const sections = Array.from(document.querySelectorAll('section'));
     const anchorLinks = Array.from(document.querySelectorAll('a[href*="#"]'));
+    const topScrollLinks = Array.from(document.querySelectorAll('.brand, .footer-logo'));
 
     // Анимация появления секций
     if ('IntersectionObserver' in window) {
@@ -21,6 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         sections.forEach((section) => {
+            if (section.id === 'hero') {
+                return;
+            }
             section.style.opacity = '0';
             section.style.transform = 'translateY(30px)';
             section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
@@ -56,6 +60,23 @@ document.addEventListener('DOMContentLoaded', function() {
                     e.preventDefault();
                 }
             }
+        });
+    });
+
+    topScrollLinks.forEach((link) => {
+        link.addEventListener('click', function(e) {
+            const href = link.getAttribute('href') || '';
+            if (!href.endsWith('#top')) return;
+
+            try {
+                const url = new URL(href, window.location.origin);
+                if (url.pathname !== window.location.pathname) return;
+            } catch (err) {
+                return;
+            }
+
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     });
 
@@ -299,6 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const calcSummary = $('#calc-summary');
     const calcSelectedEquipment = $('#calc-selected-equipment');
     const selectedEquipmentState = new Map();
+    const MAX_CALC_DIGITS = 10;
 
     function formatPrice(n) {
         if (!n || isNaN(n)) return '0 грн';
@@ -321,6 +343,74 @@ document.addEventListener('DOMContentLoaded', function() {
             return 'Кількість змін';
         }
         return 'Тривалість (годин)';
+    }
+
+    function sanitizeNumericInputValue(value) {
+        const stringValue = String(value || '');
+        const isNegative = stringValue.trim().startsWith('-');
+        const digits = stringValue.replace(/\D/g, '').slice(0, MAX_CALC_DIGITS);
+
+        if (isNegative) {
+            return '0';
+        }
+
+        return digits;
+    }
+
+    function normalizeCalcNumber(value, minimum = 0) {
+        const sanitized = sanitizeNumericInputValue(value);
+        if (!sanitized) return minimum;
+
+        const number = parseInt(sanitized, 10);
+        if (Number.isNaN(number)) return minimum;
+
+        return Math.max(minimum, number);
+    }
+
+    function bindNumericFieldGuards(input, { minimum = 0, blurMinimum = minimum, onChange } = {}) {
+        if (!input || input.dataset.calcGuardBound === 'true') return;
+
+        input.dataset.calcGuardBound = 'true';
+        input.setAttribute('inputmode', 'numeric');
+
+        input.addEventListener('keydown', function(e) {
+            if (
+                e.ctrlKey || e.metaKey || e.altKey ||
+                ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)
+            ) {
+                return;
+            }
+
+            if (!/^\d$/.test(e.key)) {
+                e.preventDefault();
+                return;
+            }
+
+            const selectionStart = input.selectionStart ?? input.value.length;
+            const selectionEnd = input.selectionEnd ?? input.value.length;
+            const nextLength = input.value.length - (selectionEnd - selectionStart) + 1;
+
+            if (nextLength > MAX_CALC_DIGITS) {
+                e.preventDefault();
+            }
+        });
+
+        input.addEventListener('input', function() {
+            const sanitized = sanitizeNumericInputValue(input.value);
+            if (input.value !== sanitized) {
+                input.value = sanitized;
+            }
+            if (typeof onChange === 'function') {
+                onChange('input', input);
+            }
+        });
+
+        input.addEventListener('blur', function() {
+            input.value = String(normalizeCalcNumber(input.value, blurMinimum));
+            if (typeof onChange === 'function') {
+                onChange('blur', input);
+            }
+        });
     }
 
     function renderSelectedEquipment() {
@@ -349,17 +439,31 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="calc-selected-grid">
                         <div>
                             <label for="calc-duration-${id}">${getUnitLabel(unit)}</label>
-                            <input type="number" id="calc-duration-${id}" data-config-id="${id}" data-config-field="duration" min="${Math.max(1, minHours)}" step="1" value="${state.duration}">
+                            <input type="number" id="calc-duration-${id}" data-config-id="${id}" data-config-field="duration" min="0" step="1" value="${state.duration}" inputmode="numeric">
                         </div>
                         <div>
                             <label for="calc-quantity-${id}">Кількість одиниць</label>
-                            <input type="number" id="calc-quantity-${id}" data-config-id="${id}" data-config-field="quantity" min="1" step="1" value="${state.quantity}">
+                            <input type="number" id="calc-quantity-${id}" data-config-id="${id}" data-config-field="quantity" min="0" step="1" value="${state.quantity}" inputmode="numeric">
                         </div>
                     </div>
                     <div class="calc-selected-meta">Ставка: ${formatPrice(price)}${unit ? ` / ${unit}` : ''}</div>
                 </div>
             `;
         }).join('');
+
+        calcSelectedEquipment.querySelectorAll('input[type="number"]').forEach((input) => {
+            const field = input.getAttribute('data-config-field');
+            const configId = input.getAttribute('data-config-id');
+            const option = equipmentOptions.find((item) => item.getAttribute('data-id') === configId);
+            const minHours = readOptionData(option, 'min-hours') || 0;
+            const blurMinimum = field === 'duration' ? Math.max(1, minHours) : 1;
+
+            bindNumericFieldGuards(input, {
+                minimum: 0,
+                blurMinimum,
+                onChange: () => calculate(),
+            });
+        });
     }
 
     function calculate() {
@@ -468,7 +572,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    if (calcArea) calcArea.addEventListener('input', calculate);
+    if (calcArea) {
+        bindNumericFieldGuards(calcArea, {
+            minimum: 0,
+            onChange: () => calculate(),
+        });
+    }
     if (calcSelectedEquipment) {
         calcSelectedEquipment.addEventListener('input', function(e) {
             const target = e.target;
